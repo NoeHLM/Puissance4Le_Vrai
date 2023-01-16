@@ -1,5 +1,6 @@
 package model;
 
+
 public class Joueur {
     private String pseudo;
     private int nb_coups;
