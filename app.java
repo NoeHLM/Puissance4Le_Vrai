@@ -13,6 +13,7 @@ public class app {
                     break;
                 case "2":
                     /*1V1*/
+
                     break;
                 case "3":
                     /*TopScore*/
@@ -24,6 +25,7 @@ public class app {
                     System.out.println("error");
                     break;
                 }
+            afficherMenu();
             }
     }
 
