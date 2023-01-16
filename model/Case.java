@@ -33,7 +33,7 @@ public class Case {
     public void enregistrer() throws IOException {
         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("grille.csv", true)));
         try {
-            pw.println(" 1 2 3 4 5 6 7");
+            pw.println("1 2 3 4 5 6 7");
             pw.println(this.toString());
             pw.println(this.toString());
             pw.println(this.toString());
