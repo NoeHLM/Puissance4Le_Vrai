@@ -49,7 +49,6 @@ public class Case {
     public String toString() {
         // return this.getNom() + ";" + this.getPrenom();*
         StringBuilder build = new StringBuilder();
-        build.append(SEPARATEUR);
         build.append(getActivesymbol());
         build.append(SEPARATEUR);
         build.append(getActivesymbol());
@@ -63,7 +62,6 @@ public class Case {
         build.append(getActivesymbol());
         build.append(SEPARATEUR);
         build.append(getActivesymbol());
-        build.append(SEPARATEUR);
         return build.toString();
     }
     public static void affichergrill() throws IOException{
