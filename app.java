@@ -1,8 +1,13 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
 import model.Case;
 import java.io.FileWriter;
+
+import model.Case;
 
 public class app {
     private static Scanner scan = new Scanner(System.in);
@@ -12,7 +17,7 @@ public class app {
             String choix = scan.nextLine();
             switch (choix) {
                 case "1":
-                    /*1VIA*/
+                    gameIA();
                     break;
                 case "2":
                     /*1V1*/
@@ -48,6 +53,10 @@ public class app {
         }
     }
 
+
+    public static void gameIA() throws IOException {
+        Case.affichergrill();
+    }
     public static void clearAllContact(){
         try {
             FileWriter file = new FileWriter("grille.csv");
@@ -71,9 +80,7 @@ public class app {
         }
     }
 
-    public static void combat1v1() {
-        
-    }
+   
 }
 
     
