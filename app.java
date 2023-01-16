@@ -23,7 +23,7 @@ public class app {
                     /*1V1*/
                     clearAllContact();
                     initialisergrille();
-                    combat1v1();
+                    
                     break;
                 case "3":
                     /*TopScore*/
