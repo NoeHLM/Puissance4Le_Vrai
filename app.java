@@ -1,5 +1,10 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import model.Case;
 
 public class app {
     private static Scanner scan = new Scanner(System.in);
@@ -9,7 +14,7 @@ public class app {
             String choix = scan.nextLine();
             switch (choix) {
                 case "1":
-                    /*1VIA*/
+                    gameIA();
                     break;
                 case "2":
                     /*1V1*/
@@ -41,6 +46,10 @@ public class app {
         for (String s : menus) {
             System.out.println(s);
         }
+    }
+
+    public static void gameIA() throws IOException {
+        Case.affichergrill();
     }
 }
 
