@@ -3,11 +3,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.IOException;
 import model.Case;
 import java.io.FileWriter;
 
-import model.Case;
+import model.Joueur;
 
 public class app {
     private static Scanner scan = new Scanner(System.in);
@@ -20,9 +19,7 @@ public class app {
                     gameIA();
                     break;
                 case "2":
-                    /*1V1*/
-                    clearAllContact();
-                    initialisergrille();
+                    game1v1();
                     
                     break;
                 case "3":
@@ -55,8 +52,19 @@ public class app {
 
 
     public static void gameIA() throws IOException {
+        clearAllContact();
+        initialisergrille();
         Case.affichergrill();
     }
+    public static void game1v1() throws IOException {
+        clearAllContact();
+        initialisergrille();
+        Joueur.ajoutplayer();
+        
+        Case.affichergrill();
+    }
+
+
     public static void clearAllContact(){
         try {
             FileWriter file = new FileWriter("grille.csv");
@@ -78,9 +86,6 @@ public class app {
         } catch (IOException e) {
             System.out.println("Erreur à l'enregistrement");
         }
-    }
-
-   
+    }  
 }
-
-    
+ 
