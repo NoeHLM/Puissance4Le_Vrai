@@ -12,14 +12,14 @@ import java.io.FileWriter;
 import model.Case;
 
 public class app {
-    static List<List<String>> test = new ArrayList<>();
-    static List<String> ligneIndex = new ArrayList<>();
-    static List<String> ligne1 = new ArrayList<>();
-    static List<String> ligne2 = new ArrayList<>();
-    static List<String> ligne3 = new ArrayList<>();
-    static List<String> ligne4 = new ArrayList<>();
-    static List<String> ligne5 = new ArrayList<>();
-    static List<String> ligne6 = new ArrayList<>();
+    private static List<List<String>> test = new ArrayList<>();
+    private static List<String> ligneIndex = new ArrayList<>();
+    private static List<String> ligne1 = new ArrayList<>();
+    private static List<String> ligne2 = new ArrayList<>();
+    private static List<String> ligne3 = new ArrayList<>();
+    private static List<String> ligne4 = new ArrayList<>();
+    private static List<String> ligne5 = new ArrayList<>();
+    private static List<String> ligne6 = new ArrayList<>();
     private static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
         afficherMenu();
@@ -30,18 +30,14 @@ public class app {
                     afficherGrill();
                     placerCoin();
                     IA();
-                    break;
-                    // Case.placeCoin();                    
+                    break;               
                 case "2":
-                    /*1V1*/
-                    clearAllContact();
-                    initialisergrille();
-                    
+                    /*1V1*/       
                     break;
                 case "3":
                     /*TopScore*/
                     break;
-                case "4":
+                case "q":
                     /*Leave*/
                     break;
                 default:
@@ -66,32 +62,13 @@ public class app {
         }
     }
 
-
-    public static void gameIA() throws IOException {
-        clearAllContact();
-        initialisergrille();
-        Case.affichergrill();
-    }
-    public static void clearAllContact(){
+    public static void clearAll(){
         try {
             FileWriter file = new FileWriter("grille.csv");
             file.write("");
             file.close();
         } catch (IOException e1) {
             e1.printStackTrace();
-        }
-    }
-
-    private static void initialisergrille() {
-
-        Case g = new Case();
-        g.setActivesymbol("_");
-        g.setEtat("neutral");
-        try {
-            g.enregistrer();
-            System.out.println("Grille reinitialisé.");
-        } catch (IOException e) {
-            System.out.println("Erreur à l'enregistrement");
         }
     }
 
@@ -126,6 +103,10 @@ public class app {
         int index = 1;
         System.out.println("Choisissez une colonne");
         String rep = scan.nextLine();
+        while(1 <= Integer.valueOf(rep) && Integer.valueOf(rep) >= 7){
+            System.out.println("Choisissez une autre colonne");
+            rep = scan.nextLine();
+        }
         while(test.get(index).get(Integer.valueOf(rep)-1) == "_" && index < 6){                        
             index++;
         }
@@ -144,7 +125,6 @@ public class app {
 
     public static void IA(){
         int r = (int)(Math.random() * 8);
-
         int index = 1;
         while(test.get(index).get(r) == "_" && index < 6){                        
             index++;
@@ -157,10 +137,10 @@ public class app {
         }
         if(test.get(1).get(r) == "_"){
             test.get(index).set(r, "=");
+            afficherGrill();
         } else{
             System.out.println("vous ne pouvez pas");
         }
-        afficherGrill();
     }
 }
 
