@@ -118,7 +118,9 @@ public class app {
             }
             afficherGrill();
         }   
-        afficherGrill();  
+        afficherGrill(); 
+    
+        
     }
 
 
