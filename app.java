@@ -23,6 +23,7 @@ public class app {
     private static Scanner scan = new Scanner(System.in);
     static String symbolp = null ;
     static String autour = null ;
+    static String couleurp = "";
     public static void main(String[] args) throws Exception {
         afficherMenu();
         while (true) {
@@ -68,7 +69,9 @@ public class app {
         Joueur.ajoutplayeria();
         clearAllContact();
         afficherGrill();
+        
         int symbolejoueur = 1 ;
+        String co = "j";
         
         int infini = 1;
 
@@ -76,7 +79,14 @@ public class app {
             if(symbolejoueur == 1){
                 symbolejoueur = 2;
                 symbolp = Joueur.p1symbol;
+                
                 autour = "Joueur\t"+Joueur.player1+" choisissez une colonne";
+                System.out.println(Joueur.p1color);
+                if (Joueur.p1color.equals("j")){
+                    couleurp = "\u001B[33m";
+                }else{
+                    couleurp = "\u001B[31m";
+                }
                 placerCoin();
             }
             afficherGrill();
@@ -91,6 +101,9 @@ public class app {
         
         Case.affichergrill();
     }
+
+
+
     public static void game1v1() throws IOException {
         
         clearAllContact();
@@ -105,6 +118,11 @@ public class app {
                 symbolejoueur = 2;
                 symbolp = Joueur.p1symbol;
                 autour = "Joueur\t"+Joueur.player1+" choisissez une colonne";
+                if (Joueur.p1color.equals("j")){
+                    couleurp = "\u001B[33m";
+                }else{
+                    couleurp = "\u001B[31m";
+                }
                 placerCoin();
 
             }
@@ -113,14 +131,19 @@ public class app {
                 symbolejoueur = 1;
                 symbolp = Joueur.p2symbol;
                 autour = "Joueur\t"+Joueur.player2+" choisissez une colonne";
+                if (Joueur.p2color.equals("j")){
+                    couleurp = "\u001B[33m";
+                }else{
+                    couleurp = "\u001B[31m";
+                }
                 placerCoin();
+                
 
             }
             afficherGrill();
         }   
         afficherGrill(); 
-    
-        
+     
     }
 
 
@@ -182,7 +205,7 @@ public class app {
         } catch (IndexOutOfBoundsException e) {
         }
         if(test.get(1).get(Integer.valueOf(rep)-1) == "_"){
-            test.get(index).set(Integer.valueOf(rep)-1, symbolp);
+            test.get(index).set(Integer.valueOf(rep)-1, couleurp+symbolp+"\u001B[0m");
         } else{
             System.out.println("vous ne pouvez pas");
         }    
@@ -201,8 +224,13 @@ public class app {
             }
         } catch (IndexOutOfBoundsException e) {
         }
+        if (Joueur.p2color.equals("j")){
+            couleurp = "\u001B[33m";
+        }else{
+            couleurp = "\u001B[31m";
+        }
         if(test.get(1).get(r) == "_"){
-            test.get(index).set(r, Joueur.p2symbol);
+            test.get(index).set(r, couleurp+Joueur.p2symbol+"\u001B[0m");
             afficherGrill();
         } else{
             System.out.println("vous ne pouvez pas");

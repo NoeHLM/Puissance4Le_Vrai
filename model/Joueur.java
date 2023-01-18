@@ -19,6 +19,7 @@ public class Joueur {
     public static String p2color= null;
     public static String p1symbol = null;
     public static String p2symbol= null;
+    
 
     public String getPseudo() {
         return pseudo;
