@@ -1,15 +1,18 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-import java.io.IOException;
 import model.Case;
-import java.io.FileWriter;
+import model.Joueur;
 
-import model.Case;
+
+import model.Joueur;
+
+import java.io.FileWriter;
+import java.util.Collections;
+
 
 public class app {
     private static List<List<String>> test = new ArrayList<>();
@@ -41,12 +44,18 @@ public class app {
                     }
                     break;               
                 case "2":
+
+                    game1v1();
+                    
+
                     /*1V1*/
+
                     afficherGrill();
                     verifiyEgalite();    
                     break;
                 case "3":
                     /*TopScore*/
+                    topscore();
                     break;
                 case "q":
                     /*Leave*/
@@ -73,7 +82,24 @@ public class app {
         }
     }
 
-    public static void clearAll(){
+
+
+    public static void gameIA() throws IOException {
+        clearAllContact();
+        initialisergrille();
+        Case.affichergrill();
+    }
+    public static void game1v1() throws IOException {
+        clearAllContact();
+        initialisergrille();
+        Joueur.ajoutplayer();
+        
+        Case.affichergrill();
+    }
+
+
+    public static void clearAllContact(){
+
         try {
             FileWriter file = new FileWriter("grille.csv");
             file.write("");
@@ -246,6 +272,30 @@ public class app {
         } else{
             System.out.println("Deja pris");
         }
+
+    }  
+
+    
+
+    private static void topscore() throws IOException {
+            int i =0;
+            ArrayList<Joueur> liste = Joueur.lister();
+            Collections.sort(liste, (c1, c2) -> Integer.parseInt(c1.getNb_coups()) - Integer.parseInt(c2.getNb_coups()));
+                for (Joueur joueur : liste) {
+                        if(i<10) {
+                        System.out.println(joueur.getPseudo() + " a fait " + joueur.getNb_coups()+ " coups");
+                        i++;
+                        }
+                else{
+                    break;
+                }
+                
+            }
+            
+            
+            
+            
+            
     }
 
     public static void IA(){
@@ -272,4 +322,5 @@ public class app {
     }
 }
 
-    
+}
+ 
