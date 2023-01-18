@@ -1,12 +1,16 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import model.Case;
-import java.io.FileWriter;
+import model.Joueur;
+
 
 import model.Joueur;
+
+import java.io.FileWriter;
+import java.util.Collections;
+
 
 public class app {
     private static Scanner scan = new Scanner(System.in);
@@ -19,11 +23,18 @@ public class app {
                     gameIA();
                     break;
                 case "2":
+
                     game1v1();
                     
+
+                    /*1V1*/
+                    clearAllContact();
+                    initialisergrille();
+
                     break;
                 case "3":
                     /*TopScore*/
+                    topscore();
                     break;
                 case "4":
                     /*Leave*/
@@ -86,6 +97,33 @@ public class app {
         } catch (IOException e) {
             System.out.println("Erreur à l'enregistrement");
         }
+
     }  
+
+    
+
+    private static void topscore() throws IOException {
+            int i =0;
+            ArrayList<Joueur> liste = Joueur.lister();
+            Collections.sort(liste, (c1, c2) -> Integer.parseInt(c1.getNb_coups()) - Integer.parseInt(c2.getNb_coups()));
+                for (Joueur joueur : liste) {
+                        if(i<10) {
+                        System.out.println(joueur.getPseudo() + " a fait " + joueur.getNb_coups()+ " coups");
+                        i++;
+                        }
+                else{
+                    break;
+                }
+                
+            }
+            
+            
+            
+            
+            
+    }
+
+   
+
 }
  
