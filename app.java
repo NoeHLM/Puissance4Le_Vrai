@@ -103,21 +103,23 @@ public class app {
     
 
     private static void topscore() throws IOException {
+
+            System.out.println("------------------------------------- \n ");
+            System.out.println("Voici le tableau des scores : \n");
             int i =0;
             ArrayList<Joueur> liste = Joueur.lister();
             Collections.sort(liste, (c1, c2) -> Integer.parseInt(c1.getNb_coups()) - Integer.parseInt(c2.getNb_coups()));
                 for (Joueur joueur : liste) {
                         if(i<10) {
-                        System.out.println(joueur.getPseudo() + " a fait " + joueur.getNb_coups()+ " coups");
+                        System.out.println((i+1)+"    -    "+joueur.getPseudo() + " a fait " + joueur.getNb_coups()+ " coups");
                         i++;
+                        }else{
+                            break;
                         }
-                else{
-                    break;
-                }
-                
+                        
             }
             
-            
+            System.out.println(" \n ");
             
             
             

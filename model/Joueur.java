@@ -94,9 +94,6 @@ public class Joueur {
             Joueur j = new Joueur();
             j.setPseudo(tab[0]);
             j.setNb_coups(tab[1]);
-            j.setColor(tab[2]);
-            j.setSymbol(tab[3]);
-            
             list.add(j);
             ligne = buf.readLine();
         }
@@ -106,6 +103,7 @@ public class Joueur {
         buf.close();
     }
     return list;
+}
 
     public static void ajoutplayer() {
         Joueur j = new Joueur();
@@ -130,7 +128,7 @@ public class Joueur {
                 } while (true);
                 do {
                     try {
-                    System.out.println("Saisir le symbole : @ ; =");
+                    System.out.println("Saisir le symbole : @ ou =");
                     j.setSymbol(scan.nextLine());
                     p1symbol = j.getSymbol();
                     break;
@@ -161,19 +159,15 @@ public class Joueur {
                 }   
             }
 
-            System.out.println(player1);
-            System.out.println(player2);
-            System.out.println(p1color);
-            System.out.println("la couleur du joueur 2 est "+""+p2color);
-            System.out.println(p1symbol);
-            System.out.println(p2symbol);
+            System.out.println("Le joueur "+player1+" a choisi le symbole : "+p1symbol+" et la couleur : "+p1color);
+            System.out.println("Le joueur "+player2+" a choisi le symbole : "+p2symbol+" et la couleur : "+p2color);
         }
 
     }
 
     
 
-}
+
 
 public static void ecrire(ArrayList<Joueur> liste) throws IOException {
     // Ouvrez le fichier en utilisant un BufferedWriter
@@ -182,8 +176,7 @@ public static void ecrire(ArrayList<Joueur> liste) throws IOException {
         writer = new BufferedWriter(new FileWriter("joueur.csv"));
         for (Joueur contact : liste) {
             try {
-                writer.write(contact.getPseudo() + ";" + contact.getNb_coups() + ";" + contact.getColor() + ";"
-                        + contact.getSymbol() + "\n");
+                writer.write(contact.getPseudo() + ";" + contact.getNb_coups() + "\n");
             } catch (Exception e) {
                 System.out.println("error");
             }
@@ -218,4 +211,3 @@ public static void ecrire(ArrayList<Joueur> liste) throws IOException {
  }
 
 }
-
