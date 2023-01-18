@@ -71,7 +71,7 @@ public class Joueur {
         
     }
 
-    public static void ajoutplayer() {
+    public static void ajoutplayer1v1() {
         Joueur j = new Joueur();
         String red = "r";
         String symb1 = "@";
@@ -135,6 +135,58 @@ public class Joueur {
 
     }
 
+    public static void ajoutplayeria() {
+        Joueur j = new Joueur();
+        String red = "r";
+        String symb1 = "@";
+
+        while(player1 == null){
+            if (player1 == null){
+                System.out.println("Saisir le nom du joueur 1");
+                j.setPseudo(scan.nextLine());
+                player1 = j.getPseudo();
+                player2 = "ia";
+                do {
+                    try {
+                    System.out.println("Saisir la couleur: j = jaune r = rouge");
+                    j.setColor(scan.nextLine());
+                    p1color = j.getColor();
+                    break;
+                    } catch (ParseException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    
+                } while (true);
+                do {
+                    try {
+                    System.out.println("Saisir le symbole : @ ; =");
+                    j.setSymbol(scan.nextLine());
+                    p1symbol = j.getSymbol();
+                    break;
+                    } catch (ParseException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    
+                } while (true);   
+            }
+            if (player2 == "ia"){  
+                if (p1color.equals(red)){
+                    p2color = "j";
+                }  
+                else{
+                    p2color = "r";
+                }
+                
+                if (p1symbol.equals(symb1)){
+                    p2symbol = "=";
+                }  
+                else{
+                    p2symbol = "@";
+                }   
+            }
+
     
 
+        }
+    }
 }

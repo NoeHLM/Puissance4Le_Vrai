@@ -2,10 +2,12 @@
 package model;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -16,6 +18,7 @@ import java.text.ParseException;
 
 public class Case {
     public static final String SEPARATEUR = "|";
+    public static String p1color;
     private String activesymbol;
     private String etat;
     public String getActivesymbol() {
@@ -40,11 +43,30 @@ public class Case {
             pw.println(this.toString());
             pw.println(this.toString());
             pw.println(this.toString());
-
         } finally {
             pw.close();
         }
     }
+
+    public static void placeCoin() throws IOException{
+        ArrayList<String> list = new ArrayList<>();
+        BufferedReader buf = new BufferedReader(new FileReader("grille.csv"));
+        try {
+            String ligne = buf.readLine();
+            String[] tab = ligne.split(SEPARATEUR);
+            while(ligne != null){ 
+                list.add(Arrays.toString(tab));       
+                System.out.println(Arrays.toString(tab));
+                ligne = buf.readLine();
+                tab = ligne.split(SEPARATEUR);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("file not found");
+        } finally{
+            buf.close();
+        }
+    }
+
     @Override
     public String toString() {
         // return this.getNom() + ";" + this.getPrenom();*
