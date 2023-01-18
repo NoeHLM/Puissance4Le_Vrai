@@ -32,7 +32,8 @@ public class app {
                     IA();
                     break;               
                 case "2":
-                    /*1V1*/       
+                    /*1V1*/ 
+                    afficherGrill();    
                     break;
                 case "3":
                     /*TopScore*/
@@ -99,8 +100,35 @@ public class app {
         System.out.println("|" + test.get(6).get(0) + "|"+ test.get(6).get(1) + "|"+ test.get(6).get(2) + "|"+ test.get(6).get(3) + "|"+ test.get(6).get(4) + "|"+ test.get(6).get(5) + "|"+ test.get(6).get(6) + "|");
     }
 
+    // public static void creatColumns(){
+    //     List<String> column1 = new ArrayList<>();
+    //     List<String> column2 = new ArrayList<>();
+    //     List<String> column3 = new ArrayList<>();
+    //     List<String> column4 = new ArrayList<>();
+    //     List<String> column5 = new ArrayList<>();
+    //     List<String> column6 = new ArrayList<>();
+    //     List<String> column7 = new ArrayList<>();
+    //     for(int i = 1;i<7;i++){
+    //         column1.add(test.get(i).get(0));
+    //         column2.add(test.get(i).get(1));
+    //         column3.add(test.get(i).get(2));
+    //         column4.add(test.get(i).get(3));
+    //         column5.add(test.get(i).get(4));
+    //         column6.add(test.get(i).get(5));
+    //         column7.add(test.get(i).get(6));
+    //     }
+
+    // }
+
     public static void placerCoin(){      
         int index = 1;
+        // do{
+        //     try {
+                
+        //     } catch (IndexOutOfBoundsException e) {
+        //         System.out.println("nul");
+        //     }
+        // }while();
         System.out.println("Choisissez une colonne");
         String rep = scan.nextLine();
         while(1 <= Integer.valueOf(rep) && Integer.valueOf(rep) >= 7){
