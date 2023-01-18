@@ -13,6 +13,9 @@ import model.Joueur;
 import java.io.FileWriter;
 import java.util.Collections;
 
+import model.Joueur;
+
+
 
 public class app {
     private static List<List<String>> test = new ArrayList<>();
@@ -25,12 +28,17 @@ public class app {
     private static List<String> ligne6 = new ArrayList<>();
     public static boolean vv = false;
     private static Scanner scan = new Scanner(System.in);
+    static String symbolp = null ;
+    static String autour = null ;
+    static String couleurp = "";
     public static void main(String[] args) throws Exception {
         afficherMenu();
         while (true) {
             String choix = scan.nextLine();
             switch (choix) {
                 case "1": 
+
+                    gameIA();
                     clearGrille();
                     while(verify() == false){
                         afficherGrill();
@@ -44,13 +52,7 @@ public class app {
                     }
                     break;               
                 case "2":
-
                     game1v1();
-                    
-
-                    /*1V1*/
-
-                    afficherGrill();
                     verifiyEgalite();    
                     break;
                 case "3":
@@ -85,20 +87,92 @@ public class app {
 
 
     public static void gameIA() throws IOException {
+
+        Joueur.ajoutplayeria();
         clearAllContact();
-        initialisergrille();
-        Case.affichergrill();
-    }
-    public static void game1v1() throws IOException {
-        clearAllContact();
-        initialisergrille();
-        Joueur.ajoutplayer();
+        afficherGrill();
+        
+        int symbolejoueur = 1 ;
+        String co = "j";
+        
+        int infini = 1;
+
+        while(infini == 1){
+            if(symbolejoueur == 1){
+                symbolejoueur = 2;
+                symbolp = Joueur.p1symbol;
+                
+                autour = "Joueur\t"+Joueur.player1+" choisissez une colonne";
+                System.out.println(Joueur.p1color);
+                if (Joueur.p1color.equals("j")){
+                    couleurp = "\u001B[33m";
+                }else{
+                    couleurp = "\u001B[31m";
+                }
+                placerCoin();
+            }
+            afficherGrill();
+            if(symbolejoueur == 2){
+                symbolejoueur = 1;
+                symbolp = Joueur.p2symbol;
+                IA();
+            }
+            afficherGrill();
+        }   
+        afficherGrill();
         
         Case.affichergrill();
     }
 
 
+
+    public static void game1v1() throws IOException {
+        
+        clearAllContact();
+        Joueur.ajoutplayer1v1();
+        afficherGrill();
+        int symbolejoueur = 1 ;
+        
+        int infini = 1;
+
+        while(infini == 1){
+            if(symbolejoueur == 1){
+                symbolejoueur = 2;
+                symbolp = Joueur.p1symbol;
+                autour = "Joueur\t"+Joueur.player1+" choisissez une colonne";
+                if (Joueur.p1color.equals("j")){
+                    couleurp = "\u001B[33m";
+                }else{
+                    couleurp = "\u001B[31m";
+                }
+                placerCoin();
+
+            }
+            afficherGrill();
+            if(symbolejoueur == 2){
+                symbolejoueur = 1;
+                symbolp = Joueur.p2symbol;
+                autour = "Joueur\t"+Joueur.player2+" choisissez une colonne";
+                if (Joueur.p2color.equals("j")){
+                    couleurp = "\u001B[33m";
+                }else{
+                    couleurp = "\u001B[31m";
+                }
+                placerCoin();
+                
+
+            }
+            afficherGrill();
+        }   
+        afficherGrill(); 
+     
+
+  
+
     public static void clearAllContact(){
+
+    }
+    public static void clearAll(){
 
         try {
             FileWriter file = new FileWriter("grille.csv");
@@ -252,7 +326,7 @@ public class app {
 
     public static void placerCoin(){      
         int index = 1;
-        System.out.println("Choisissez une colonne");
+        System.out.println(autour);
         String rep = scan.nextLine();
         while(1 <= Integer.valueOf(rep) && Integer.valueOf(rep) >= 8){
             System.out.println("Choisissez une autre colonne");
@@ -268,7 +342,7 @@ public class app {
         } catch (IndexOutOfBoundsException e) {
         }
         if(test.get(1).get(Integer.valueOf(rep)-1) == "_"){
-            test.get(index).set(Integer.valueOf(rep)-1, "@");
+            test.get(index).set(Integer.valueOf(rep)-1, couleurp+symbolp+"\u001B[0m");
         } else{
             System.out.println("Deja pris");
         }
@@ -296,6 +370,7 @@ public class app {
             
             
             
+
     }
 
     public static void IA(){
@@ -312,15 +387,19 @@ public class app {
                 }
             } catch (IndexOutOfBoundsException e) {
             }
+            if (Joueur.p2color.equals("j")){
+            couleurp = "\u001B[33m";
+            }else{
+            couleurp = "\u001B[31m";
+            }
             if(test.get(1).get(r) == "_"){
-                test.get(index).set(r, "=");
+                test.get(index).set(r,couleurp+Joueur.p2symbol+"\u001B[0m");
                 z = true;
             } else{
                 z = false;
             }
         } while(z ==false);
     }
-}
 
 }
  

@@ -18,6 +18,7 @@ import java.text.ParseException;
 
 public class Case {
     public static final String SEPARATEUR = "|";
+    public static String p1color;
     private String activesymbol;
     private String etat;
     public String getActivesymbol() {
