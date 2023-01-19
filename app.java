@@ -12,6 +12,7 @@ import model.Case;
 import java.io.FileWriter;
 
 import model.Case;
+import model.Joueur;
 
 public class app {
     private static List<List<String>> test = new ArrayList<>();
@@ -23,8 +24,13 @@ public class app {
     private static List<String> ligne5 = new ArrayList<>();
     private static List<String> ligne6 = new ArrayList<>();
     public static boolean vv = false;
-    public static boolean victoirej1 = false;
     public static boolean vc = false;
+    public static String victoire = null;
+    static String symbolp = null ;
+    static String autour = null ;
+    static String couleurp1 = "";
+    static String couleurp2 = "";
+    
     private static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
         afficherMenu();
@@ -32,21 +38,9 @@ public class app {
             String choix = scan.nextLine();
             switch (choix) {
                 case "1": 
-                        clearGrille();
-                        addGrill();
-                        afficherGrill();
-                        
-                        while(victoirej1 == false  || victoirej1 == false ){                       
-                            placerCoin();
-                            IA();
-                            if(verifiyEgalite()== true){
-                                System.out.println("Egalité contre un bot");
-                                break;
-                            }
-                            
-                        }
-                        victoirej1 = false;
-                        vc = false;
+                
+                    gameia();
+                    
                     break;               
                 case "2":
                     /*1V1*/
@@ -79,6 +73,42 @@ public class app {
         for (String s : menus) {
             System.out.println(s);
         }
+    }
+
+    public static void gameia(){
+        
+        Joueur.ajoutplayeria();
+        clearGrille();
+        addGrill();
+        afficherGrill();
+        if (Joueur.p1color.equals("j")){
+            couleurp1 = "\u001B[33m";
+        }else{
+            couleurp1 = "\u001B[31m";
+        }
+        if (Joueur.p2color.equals("j")){
+            couleurp2 = "\u001B[33m";
+        }else{
+            couleurp2 = "\u001B[31m";
+        }
+        
+
+        while(victoire == null){                       
+            placerCoin();
+            IA();
+            if(verifiyEgalite()== true){
+                System.out.println("Egalité contre un bot");
+                break;
+            }    
+        }
+        if(victoire == "0"){
+            System.out.println("\n\nl'équipe "+Joueur.player1+" à gagné\n");
+        }else if(victoire == "1"){
+            System.out.println("\n\nl'IA  à gagné\n");
+        }
+        victoire = null;
+        vc = false;
+
     }
 
     public static void clearAll(){
@@ -166,92 +196,150 @@ public class app {
 
     }
 
-    public static boolean verifyLine(String Symbolpions){
+    public static String verifyLine(String Symbolpions,  String couleurpions){
         
-        
+            
             try {
-                if((test.get(6).get(0) == Symbolpions && test.get(6).get(1) == Symbolpions && test.get(6).get(2) == Symbolpions && test.get(6).get(3) == Symbolpions) ||
-            (test.get(6).get(1) == Symbolpions && test.get(6).get(2) == Symbolpions && test.get(6).get(3) == Symbolpions && test.get(6).get(4) == Symbolpions) ||
-            (test.get(6).get(2) == Symbolpions && test.get(6).get(3) == Symbolpions && test.get(6).get(4) == Symbolpions && test.get(6).get(5) == Symbolpions) ||
-            (test.get(6).get(3) == Symbolpions && test.get(6).get(4) == Symbolpions && test.get(6).get(5) == Symbolpions && test.get(6).get(6) == Symbolpions)){
-                victoirej1 = true;
-                } else if((test.get(5).get(0) == Symbolpions && test.get(5).get(1) == Symbolpions && test.get(5).get(2) == Symbolpions && test.get(5).get(3) == Symbolpions) ||
-                (test.get(5).get(1) == Symbolpions && test.get(5).get(2) == Symbolpions && test.get(5).get(3) == Symbolpions && test.get(5).get(4) == Symbolpions) ||
-                (test.get(5).get(2) == Symbolpions && test.get(5).get(3) == Symbolpions && test.get(5).get(4) == Symbolpions && test.get(5).get(5) == Symbolpions) ||
-                (test.get(5).get(3) == Symbolpions && test.get(5).get(4) == Symbolpions && test.get(5).get(5) == Symbolpions && test.get(5).get(6) == Symbolpions)){
-                    victoirej1 = true;
-                } else if((test.get(4).get(0) == Symbolpions && test.get(4).get(1) == Symbolpions && test.get(4).get(2) == Symbolpions && test.get(4).get(3) == Symbolpions) ||
-                (test.get(4).get(1) == Symbolpions && test.get(4).get(2) == Symbolpions && test.get(4).get(3) == Symbolpions && test.get(4).get(4) == Symbolpions) ||
-                (test.get(4).get(2) == Symbolpions && test.get(4).get(3) == Symbolpions && test.get(4).get(4) == Symbolpions && test.get(4).get(5) == Symbolpions) ||
-                (test.get(4).get(3) == Symbolpions && test.get(4).get(4) == Symbolpions && test.get(4).get(5) == Symbolpions && test.get(4).get(6) == Symbolpions)){
-                    victoirej1 = true;
-                }else if((test.get(3).get(0) == Symbolpions && test.get(3).get(1) == Symbolpions && test.get(3).get(2) == Symbolpions && test.get(3).get(3) == Symbolpions) ||
-                (test.get(3).get(1) == Symbolpions && test.get(3).get(2) == Symbolpions && test.get(3).get(3) == Symbolpions && test.get(3).get(4) == Symbolpions) ||
-                (test.get(3).get(2) == Symbolpions && test.get(3).get(3) == Symbolpions && test.get(3).get(4) == Symbolpions && test.get(3).get(5) == Symbolpions) ||
-                (test.get(3).get(3) == Symbolpions && test.get(3).get(4) == Symbolpions && test.get(3).get(5) == Symbolpions && test.get(3).get(6) == Symbolpions)){
-                    victoirej1 = true;
-                }else if((test.get(2).get(0) == Symbolpions && test.get(2).get(1) == Symbolpions && test.get(2).get(2) == Symbolpions && test.get(2).get(3) == Symbolpions) ||
-                (test.get(2).get(1) == Symbolpions && test.get(2).get(2) == Symbolpions && test.get(2).get(3) == Symbolpions && test.get(2).get(4) == Symbolpions) ||
-                (test.get(2).get(2) == Symbolpions && test.get(2).get(3) == Symbolpions && test.get(2).get(4) == Symbolpions && test.get(2).get(5) == Symbolpions) ||
-                (test.get(2).get(3) == Symbolpions && test.get(2).get(4) == Symbolpions && test.get(2).get(5) == Symbolpions && test.get(2).get(6) == Symbolpions)){
-                    victoirej1 = true;
-                } else if((test.get(1).get(0) == Symbolpions && test.get(1).get(1) == Symbolpions && test.get(1).get(2) == Symbolpions && test.get(1).get(3) == Symbolpions) ||
-                (test.get(1).get(1) == Symbolpions && test.get(1).get(2) == Symbolpions && test.get(1).get(3) == Symbolpions && test.get(1).get(4) == Symbolpions) ||
-                (test.get(1).get(2) == Symbolpions && test.get(1).get(3) == Symbolpions && test.get(1).get(4) == Symbolpions && test.get(1).get(5) == Symbolpions) ||
-                (test.get(1).get(3) == Symbolpions && test.get(1).get(4) == Symbolpions && test.get(1).get(5) == Symbolpions && test.get(1).get(6) == Symbolpions)){
-                    victoirej1 = true;
+                if((test.get(6).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(3).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(6).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(4).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(6).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(5).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(6).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(6).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                if(Symbolpions.equals(Joueur.p1symbol)){
+                    victoire = "0";
+                }else{
+                    victoire="1";
+                }
+                
+                } else if((test.get(5).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(3).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(5).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(4).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(5).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(5).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(5).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(6).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                    if(Symbolpions.equals(Joueur.p1symbol)){
+                        victoire = "0";
+                    }else{
+                        victoire="1";
+                    }
+                } else if((test.get(4).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(3).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(4).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(4).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(4).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(5).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(4).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(6).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                    if(Symbolpions.equals(Joueur.p1symbol)){
+                        victoire = "0";
+                    }else{
+                        victoire="1";
+                    }
+                }else if((test.get(3).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(3).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(3).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(4).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(3).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(5).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(3).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(6).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                    if(Symbolpions.equals(Joueur.p1symbol)){
+                        victoire = "0";
+                    }else{
+                        victoire="1";
+                    }
+                }else if((test.get(2).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(3).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(2).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(4).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(2).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(5).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(2).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(6).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                    if(Symbolpions.equals(Joueur.p1symbol)){
+                        victoire = "0";
+                    }else{
+                        victoire="1";
+                    }
+                } else if((test.get(1).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(3).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(1).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(4).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(1).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(5).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(1).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(6).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                    if(Symbolpions.equals(Joueur.p1symbol)){
+                        victoire = "0";
+                    }else{
+                        victoire="1";
+                    }
                 }
             } catch (IndexOutOfBoundsException e) {
                 // TODO: handle exception
             }
         
         
-        return victoirej1;
+        return victoire;
+        
     }
 
-    public static boolean verifyColumn(String Symbolpions){
+    public static String verifyColumn(String Symbolpions, String couleurpions){
+        
         
         
             try {
-                if((test.get(1).get(0) == Symbolpions && test.get(2).get(0) == Symbolpions && test.get(3).get(0) == Symbolpions && test.get(4).get(0) == Symbolpions) ||
-            (test.get(2).get(0) == Symbolpions && test.get(3).get(0) == Symbolpions && test.get(4).get(0) == Symbolpions && test.get(5).get(0) == Symbolpions) ||
-            (test.get(3).get(0) == Symbolpions && test.get(4).get(0) == Symbolpions && test.get(5).get(0) == Symbolpions && test.get(6).get(0) == Symbolpions)){
-                victoirej1 = true;
-                } else if((test.get(1).get(1) == Symbolpions && test.get(2).get(1) == Symbolpions && test.get(3).get(1) == Symbolpions && test.get(4).get(1) == Symbolpions) ||
-                (test.get(2).get(1) == Symbolpions && test.get(3).get(1) == Symbolpions && test.get(4).get(1) == Symbolpions && test.get(5).get(1) == Symbolpions) ||
-                (test.get(3).get(1) == Symbolpions && test.get(4).get(1) == Symbolpions && test.get(5).get(1) == Symbolpions && test.get(6).get(1) == Symbolpions)){
-                    victoirej1 = true;
-                } else if((test.get(1).get(2) == Symbolpions && test.get(2).get(2) == Symbolpions && test.get(3).get(2) == Symbolpions && test.get(4).get(2) == Symbolpions) ||
-                (test.get(2).get(2) == Symbolpions && test.get(3).get(2) == Symbolpions && test.get(4).get(2) == Symbolpions && test.get(5).get(2) == Symbolpions) ||
-                (test.get(3).get(2) == Symbolpions && test.get(4).get(2) == Symbolpions && test.get(5).get(2) == Symbolpions && test.get(6).get(2) == Symbolpions)){
-                    victoirej1 = true;
-                }else if((test.get(1).get(3) == Symbolpions && test.get(2).get(3) == Symbolpions && test.get(3).get(3) == Symbolpions && test.get(4).get(3) == Symbolpions) ||
-                (test.get(2).get(3) == Symbolpions && test.get(3).get(3) == Symbolpions && test.get(4).get(3) == Symbolpions && test.get(5).get(3) == Symbolpions) ||
-                (test.get(3).get(3) == Symbolpions && test.get(4).get(3) == Symbolpions && test.get(5).get(3) == Symbolpions && test.get(6).get(3) == Symbolpions)){
-                    victoirej1 = true;
-                }else if((test.get(1).get(4) == Symbolpions && test.get(2).get(4) == Symbolpions && test.get(3).get(4) == Symbolpions && test.get(4).get(4) == Symbolpions) ||
-                (test.get(2).get(4) == Symbolpions && test.get(3).get(4) == Symbolpions && test.get(4).get(4) == Symbolpions && test.get(5).get(4) == Symbolpions) ||
-                (test.get(3).get(4) == Symbolpions && test.get(4).get(4) == Symbolpions && test.get(5).get(4) == Symbolpions && test.get(6).get(4) == Symbolpions)){
-                    victoirej1 = true;
-                } else if((test.get(1).get(5) == Symbolpions && test.get(2).get(5) == Symbolpions && test.get(3).get(5) == Symbolpions && test.get(4).get(5) == Symbolpions) ||
-                (test.get(2).get(5) == Symbolpions && test.get(3).get(5) == Symbolpions && test.get(4).get(5) == Symbolpions && test.get(5).get(5) == Symbolpions) ||
-                (test.get(3).get(5) == Symbolpions && test.get(4).get(5) == Symbolpions && test.get(5).get(5) == Symbolpions && test.get(6).get(5) == Symbolpions)){
-                    victoirej1 = true;
-                } else if((test.get(1).get(6) == Symbolpions && test.get(2).get(6) == Symbolpions && test.get(3).get(6) == Symbolpions && test.get(4).get(6) == Symbolpions) ||
-                (test.get(2).get(6) == Symbolpions && test.get(3).get(6) == Symbolpions && test.get(4).get(6) == Symbolpions && test.get(5).get(6) == Symbolpions) ||
-                (test.get(3).get(6) == Symbolpions && test.get(4).get(6) == Symbolpions && test.get(5).get(6) == Symbolpions && test.get(6).get(6) == Symbolpions)){
-                    victoirej1 = true;
+                if((test.get(1).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(0).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(2).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(0).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(3).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(0).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                if(Symbolpions.equals(Joueur.p1symbol)){
+                    victoire = "0";
+                }else{
+                    victoire="1";
+                }
+                
+                } else if((test.get(1).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(1).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(2).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(1).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(3).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(1).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                    if(Symbolpions.equals(Joueur.p1symbol)){
+                        victoire = "0";
+                    }else{
+                        victoire="1";
+                    }
+                } else if((test.get(1).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(2).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(2).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(2).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(3).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(2).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                    if(Symbolpions.equals(Joueur.p1symbol)){
+                        victoire = "0";
+                    }else{
+                        victoire="1";
+                    }
+                }else if((test.get(1).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(3).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(2).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(3).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(3).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(3).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                    if(Symbolpions.equals(Joueur.p1symbol)){
+                        victoire = "0";
+                    }else{
+                        victoire="1";
+                    }
+                }else if((test.get(1).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(4).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(2).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(4).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(3).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(4).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                    if(Symbolpions.equals(Joueur.p1symbol)){
+                        victoire = "0";
+                    }else{
+                        victoire="1";
+                    }
+                } else if((test.get(1).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(5).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(2).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(5).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(3).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(5).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                    if(Symbolpions.equals(Joueur.p1symbol)){
+                        victoire = "0";
+                    }else{
+                        victoire="1";
+                    }
+                } else if((test.get(1).get(6).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(6).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(6).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(6).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(2).get(6).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(6).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(6).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(6).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+                (test.get(3).get(6).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(6).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(6).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(6).get(6).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                    if(Symbolpions.equals(Joueur.p1symbol)){
+                        victoire = "0";
+                    }else{
+                        victoire="1";
+                    }
                 }
             } catch (IndexOutOfBoundsException e) {
                 // TODO: handle exception
             }
         
         
-        return victoirej1;
+        return victoire;
     }
 
     public static void placerCoin(){      
         int index = 1;
+        
+        
         System.out.println("Choisissez une colonne");
         String rep = scan.nextLine();
         while(1 <= Integer.valueOf(rep) && Integer.valueOf(rep) >= 8){
@@ -268,12 +356,12 @@ public class app {
         } catch (IndexOutOfBoundsException e) {
         }
         if(test.get(1).get(Integer.valueOf(rep)-1) == "_"){
-            test.get(index).set(Integer.valueOf(rep)-1, "@");
+            test.get(index).set(Integer.valueOf(rep)-1, couleurp1 + Joueur.p1symbol + "\u001B[0m");
         } else{
             System.out.println("Deja pris");
         }
-        verifyLine("@");
-        verifyColumn("@");
+        verifyLine(Joueur.p1symbol, couleurp1);
+        verifyColumn(Joueur.p1symbol, couleurp1);
     }
 
     public static void IA(){
@@ -291,15 +379,15 @@ public class app {
             } catch (IndexOutOfBoundsException e) {
             }
             if(test.get(1).get(r) == "_"){
-                test.get(index).set(r, "=");
+                test.get(index).set(r,couleurp2+Joueur.p2symbol+"\u001B[0m");
                 z = true;
             } else{
                 z = false;
             }
         } while(z ==false);
         afficherGrill();
-        verifyLine("=");
-        verifyColumn("=");
+        verifyLine(Joueur.p2symbol, couleurp2);
+        verifyColumn(Joueur.p2symbol, couleurp2);
     }
 }
 

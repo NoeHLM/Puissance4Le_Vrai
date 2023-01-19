@@ -89,7 +89,7 @@ public class Joueur {
         }
         
     }
-    public static ArrayList<Joueur> lister() throws IOException {
+    public static ArrayList<Joueur> lister() throws IOException, ParseException {
         
     ArrayList<Joueur> list = new ArrayList<>();
     String SEPARATEUR = ";";
@@ -113,6 +113,7 @@ public class Joueur {
         buf.close();
     }
     return list;
+    }
 
     public static void ajoutplayer() {
         Joueur j = new Joueur();
@@ -180,7 +181,7 @@ public class Joueur {
 
     
 
-}
+
 
 public static void ecrire(ArrayList<Joueur> liste) throws IOException {
     // Ouvrez le fichier en utilisant un BufferedWriter
