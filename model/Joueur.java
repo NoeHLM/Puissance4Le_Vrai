@@ -95,28 +95,27 @@ public class Joueur {
     }
     public static ArrayList<Joueur> lister() throws IOException, ParseException {
         
-    ArrayList<Joueur> list = new ArrayList<>();
-    String SEPARATEUR = ";";
-    BufferedReader buf = new BufferedReader(new FileReader("joueur.csv"));
-    try {
-        String ligne = buf.readLine();
-        while (ligne != null) {
-            String[] tab = ligne.split(SEPARATEUR);
-            Joueur j = new Joueur();
-            j.setPseudo(tab[0]);
-            j.setNb_coups(tab[1]);
-            j.setColor(tab[2]);
-            j.setSymbol(tab[3]);
-            
-            list.add(j);
-            ligne = buf.readLine();
+        ArrayList<Joueur> list = new ArrayList<>();
+        String SEPARATEUR = ";";
+        BufferedReader buf = new BufferedReader(new FileReader("joueur.csv"));
+        try {
+            String ligne = buf.readLine();
+            while (ligne != null) {
+                String[] tab = ligne.split(SEPARATEUR);
+                Joueur j = new Joueur();
+                j.setPseudo(tab[0]);
+                j.setNb_coups(tab[1]);
+                
+                list.add(j);
+                ligne = buf.readLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Erreur de lecture sur le fichier");
+        } finally {
+            buf.close();
         }
-    } catch (IOException e) {
-        System.out.println("Erreur de lecture sur le fichier");
-    } finally {
-        buf.close();
-    }
-    return list;
+        return list;
+
     }
 
     public static void ajoutplayer() {
@@ -367,6 +366,7 @@ public static void ecrire(ArrayList<Joueur> liste) throws IOException {
             p=true;
             } else{
                 p = false;
+                Case.afficherGrill();
             System.out.println("Deja pris");
             }
         } while (p == false);
@@ -376,7 +376,7 @@ public static void ecrire(ArrayList<Joueur> liste) throws IOException {
         Case.verifyDiagoRight(pions, couleurp);
     }
 
-    
+
     public static void IA(){
         boolean z = false;
         do{
@@ -399,10 +399,14 @@ public static void ecrire(ArrayList<Joueur> liste) throws IOException {
             }
         } while(z ==false);
         Case.afficherGrill();
-        Case.verifyLine(Joueur.p2symbol, couleurp2);
-        Case.verifyColumn(Joueur.p2symbol, couleurp2);
-        Case.verifyDiagoLeft(Joueur.p2symbol, couleurp2);
-        Case.verifyDiagoRight(Joueur.p2symbol, couleurp2);
+        if(Case.victoire == "0"){
+
+        }else{
+            Case.verifyLine(Joueur.p2symbol, couleurp2);
+            Case.verifyColumn(Joueur.p2symbol, couleurp2);
+            Case.verifyDiagoLeft(Joueur.p2symbol, couleurp2);
+            Case.verifyDiagoRight(Joueur.p2symbol, couleurp2);
+        }
     }
 }
 
