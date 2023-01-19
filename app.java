@@ -30,6 +30,8 @@ public class app {
     static String autour = null ;
     static String couleurp1 = "";
     static String couleurp2 = "";
+    static String couleurp = "";
+    static String pions = null;
     
     private static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
@@ -43,9 +45,7 @@ public class app {
                     
                     break;               
                 case "2":
-                    /*1V1*/
-                    afficherGrill();
-                    verifiyEgalite();    
+                    game1v1();    
                     break;
                 case "3":
                     /*TopScore*/
@@ -76,8 +76,45 @@ public class app {
     }
 
     public static void gameia(){
-        
+                
         Joueur.ajoutplayeria();
+        clearGrille();
+        addGrill();
+        afficherGrill();
+        if (Joueur.p1color.equals("j")){
+            couleurp1 = "\u001B[33m";
+            
+        }else{
+            couleurp1 = "\u001B[31m";
+        }
+        if (Joueur.p2color.equals("j")){
+            couleurp2 = "\u001B[33m";
+        }else{
+            couleurp2 = "\u001B[31m";
+        }
+        while(victoire == null){ 
+            couleurp = couleurp1;
+            pions = Joueur.p1symbol;                    
+            placerCoin();
+            IA();
+            if(verifiyEgalite()== true){
+                System.out.println("Egalité contre un bot");
+                break;
+            }    
+        }
+        if(victoire == "0"){
+            System.out.println("\n\nl'équipe "+Joueur.player1+" à gagné\n");
+        }else if(victoire == "1"){
+            System.out.println("\n\nl'IA  à gagné\n");
+        }
+        victoire = null;
+        vc = false;
+
+    }
+
+    public static void game1v1(){
+        int tour = 1 ;
+        Joueur.ajoutplayer1v1();
         clearGrille();
         addGrill();
         afficherGrill();
@@ -91,11 +128,18 @@ public class app {
         }else{
             couleurp2 = "\u001B[31m";
         }
-        
-
-        while(victoire == null){                       
+        while(victoire == null){ 
+            if(tour == 1){
+                pions = Joueur.p1symbol;
+                couleurp = couleurp1;
+                tour = 2;
+            }else{
+                pions = Joueur.p2symbol;
+                couleurp = couleurp2;
+                tour = 1;
+            }                       
             placerCoin();
-            IA();
+            afficherGrill();
             if(verifiyEgalite()== true){
                 System.out.println("Egalité contre un bot");
                 break;
@@ -104,7 +148,7 @@ public class app {
         if(victoire == "0"){
             System.out.println("\n\nl'équipe "+Joueur.player1+" à gagné\n");
         }else if(victoire == "1"){
-            System.out.println("\n\nl'IA  à gagné\n");
+            System.out.println("\n\nl'équipe "+Joueur.player2+" à gagné\n");
         }
         victoire = null;
         vc = false;
@@ -356,12 +400,12 @@ public class app {
         } catch (IndexOutOfBoundsException e) {
         }
         if(test.get(1).get(Integer.valueOf(rep)-1) == "_"){
-            test.get(index).set(Integer.valueOf(rep)-1, couleurp1 + Joueur.p1symbol + "\u001B[0m");
+            test.get(index).set(Integer.valueOf(rep)-1, couleurp + pions + "\u001B[0m");
         } else{
             System.out.println("Deja pris");
         }
-        verifyLine(Joueur.p1symbol, couleurp1);
-        verifyColumn(Joueur.p1symbol, couleurp1);
+        verifyLine(pions, couleurp);
+        verifyColumn(pions, couleurp);
     }
 
     public static void IA(){
