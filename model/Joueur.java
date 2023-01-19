@@ -345,7 +345,6 @@ public static void ecrire(ArrayList<Joueur> liste) throws IOException {
 
     public static void placerCoin(){ 
         boolean p = false;     
-        
         do {
             int index = 1;
             System.out.println("Choisissez une colonne");
@@ -376,6 +375,8 @@ public static void ecrire(ArrayList<Joueur> liste) throws IOException {
         Case.verifyDiagoLeft(pions, couleurp);
         Case.verifyDiagoRight(pions, couleurp);
     }
+
+    
     public static void IA(){
         boolean z = false;
         do{
