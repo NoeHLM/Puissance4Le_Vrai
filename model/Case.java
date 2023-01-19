@@ -59,6 +59,15 @@ public class Case {
             pw.close();
         }
     }
+    //--------------------------------------------------------------------------------------------------------
+                                    //placeCoin()
+    // La fonction placeCoin() permet de placer un jeton (coin) dans une grille de Morpion en lisant les
+    //  informations depuis un fichier CSV nommé "grille.csv". Elle déclare une liste list et un objet buf
+    //   de type BufferedReader qui lit le fichier "grille.csv". Elle utilise ensuite une boucle try-catch-finally
+    //    pour lire les lignes du fichier et les ajouter à la liste. Chaque ligne est séparée en utilisant le séparateur
+    //     défini dans la variable SEPARATEUR, puis convertie en chaîne en utilisant la méthode Arrays.toString() et ajoutée
+    //      à la liste. Enfin, le contenu de la liste est affiché à l'utilisateur et le flux de fichier est fermé.
+    //--------------------------------------------------------------------------------------------------------
 
     public static void placeCoin() throws IOException{
         ArrayList<String> list = new ArrayList<>();
@@ -113,7 +122,15 @@ public class Case {
             buf.close();
         }
     }
-
+    //--------------------------------------------------------------------------------------------------------
+                                // addGrill()
+    // La fonction addGrill() permet de créer une grille vide . Elle ajoute une ligne
+    //  d'index de colonne "1 2 3 4 5 6 7" à la liste ligneIndex, puis utilise une boucle for pour ajouter
+    //   sept "_" à chacune des listes ligne1, ligne2, ligne3, ligne4, ligne5 et ligne6. Ensuite, les listes
+    //    ligneIndex, ligne1, ligne2, ligne3, ligne4, ligne5 et ligne6 sont ajoutées à la liste test, ce qui
+    //     permet de créer une grille vide de 7 lignes et 7 colonnes. Cette grille vide sera utilisée pour placer
+    //      les jetons (coins) lors du jeu.
+    //--------------------------------------------------------------------------------------------------------
     public static void addGrill(){
         ligneIndex.add(" 1 2 3 4 5 6 7");
         for(int i=0; i<7;i++){
@@ -132,6 +149,13 @@ public class Case {
         test.add(ligne5);
         test.add(ligne6);
     }
+//--------------------------------------------------------------------------------------------------------
+                                        // afficherGrill()
+    // Cette fonction a pour but d'afficher un plateau de jeu en utilisant
+    //  un tableau de données. Elle initialise les lignes d'indice et de jeu avec des tirets "_" pour représenter
+    //   des cases vides. Elle ajoute ensuite ces lignes au tableau de jeu et affiche le plateau de jeu en utilisant
+    //    les données stockées dans le tableau.
+    //--------------------------------------------------------------------------------------------------------
 
     public static void afficherGrill(){
         System.out.println(test.get(0).get(0));
@@ -142,6 +166,13 @@ public class Case {
         System.out.println("|" + test.get(5).get(0) + "|"+ test.get(5).get(1) + "|"+ test.get(5).get(2) + "|"+ test.get(5).get(3) + "|"+ test.get(5).get(4) + "|"+ test.get(5).get(5) + "|"+ test.get(5).get(6) + "|");
         System.out.println("|" + test.get(6).get(0) + "|"+ test.get(6).get(1) + "|"+ test.get(6).get(2) + "|"+ test.get(6).get(3) + "|"+ test.get(6).get(4) + "|"+ test.get(6).get(5) + "|"+ test.get(6).get(6) + "|");
     }
+//--------------------------------------------------------------------------------------------------------
+                                    // clearGrille()
+// clearGrille() est une méthode qui permet de nettoyer la grille de jeu en cours.
+// Elle vide les listes de lignes (ligne1, ligne2, ...) et la liste contenant toutes les lignes (test)
+// Puis elle réinitialise la grille en ajoutant à nouveau les lignes vides dans la liste test.
+//--------------------------------------------------------------------------------------------------------
+
 
     public static void clearGrille(){
         test.clear();
@@ -162,6 +193,13 @@ public class Case {
         test.add(ligne5);
         test.add(ligne6);
     }
+//--------------------------------------------------------------------------------------------------------
+                        //verifiyEgalite()
+// Ce code crée 8 listes distinctes, chacune représentant une colonne dans un tableau à deux dimensions.
+// Il parcoure ensuite chaque colonne en utilisant une boucle for et vérifie si elle ne contient pas de "".
+// Si aucune colonne ne contient de "", la variable vc est définie comme étant vraie.
+// La méthode retourne finalement la valeur de vc.
+//--------------------------------------------------------------------------------------------------------
 
     public static boolean verifiyEgalite(){
         
@@ -188,6 +226,16 @@ public class Case {
         return vc;
 
     }
+    //--------------------------------------------------------------------------------------------------------
+                                    // verifyLine()
+    // La fonction verifyLine() vérifie si une ligne complète de la grille de Morpion est remplie avec les jetons (coins) d'un
+    //  joueur donné. Elle prend en entrée deux arguments, Symbolpions et couleurpions, qui représentent respectivement le symbole
+    //   et la couleur des jetons du joueur.Elle utilise une boucle try-catch pour vérifier si chaque ligne de la grille contient 4
+    //    jetons consécutifs du joueur donné. Elle utilise des conditions if-else pour vérifier toutes les combinaisons possibles de
+    //     4 jetons consécutifs dans chaque ligne de la grille. Si une ligne est remplie avec des jetons du joueur donné, la variable
+    //      victoire est définie comme "0" si c'est le joueur 1 qui a gagné, sinon "1" pour l'IA. Si aucune ligne n'est remplie, la
+    //       fonction renvoie null.
+    //--------------------------------------------------------------------------------------------------------
 
     public static String verifyLine(String Symbolpions,  String couleurpions){
         
@@ -257,7 +305,16 @@ public class Case {
         return victoire;
         
     }
-
+    //--------------------------------------------------------------------------------------------------------
+                                    // verifyColumn()
+    // La fonction verifyColumn() vérifie si une ligne complète de la grille de Morpion est remplie avec les jetons (coins) d'un
+    //  joueur donné. Elle prend en entrée deux arguments, Symbolpions et couleurpions, qui représentent respectivement le symbole
+    //   et la couleur des jetons du joueur.Elle utilise une boucle try-catch pour vérifier si chaque ligne de la grille contient 4
+    //    jetons consécutifs du joueur donné. Elle utilise des conditions if-else pour vérifier toutes les combinaisons possibles de
+    //     4 jetons consécutifs dans chaque colonne de la grille. Si une ligne est remplie avec des jetons du joueur donné, la variable
+    //      victoire est définie comme "0" si c'est le joueur 1 qui a gagné, sinon "1" pour l'IA. Si aucune ligne n'est remplie, la
+    //       fonction renvoie null.
+    //--------------------------------------------------------------------------------------------------------
     public static String verifyColumn(String Symbolpions, String couleurpions){
         
         
@@ -328,7 +385,16 @@ public class Case {
         
         return victoire;
     }
-
+    //--------------------------------------------------------------------------------------------------------
+                                    // verifyDiagoRight()
+    // La fonction verifyDiagoRight() vérifie si une ligne complète de la grille de Morpion est remplie avec les jetons (coins) d'un
+    //  joueur donné. Elle prend en entrée deux arguments, Symbolpions et couleurpions, qui représentent respectivement le symbole
+    //   et la couleur des jetons du joueur.Elle utilise une boucle try-catch pour vérifier si chaque ligne de la grille contient 4
+    //    jetons consécutifs du joueur donné. Elle utilise des conditions if-else pour vérifier toutes les combinaisons possibles de
+    //     4 jetons consécutifs dans chaque colonne de la grille. Si une diagodroite est remplie avec des jetons du joueur donné, la variable
+    //      victoire est définie comme "0" si c'est le joueur 1 qui a gagné, sinon "1" pour l'IA. Si aucune ligne n'est remplie, la
+    //       fonction renvoie null.
+    //--------------------------------------------------------------------------------------------------------
     public static String verifyDiagoRight(String Symbolpions, String couleurpions){
         try {
             if((test.get(4).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(3).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
@@ -374,7 +440,16 @@ public class Case {
         }
         return victoire;
     }
-
+    //--------------------------------------------------------------------------------------------------------
+                                    // verifyDiagoLeft()
+    // La fonction verifyDiagoLeft() vérifie si une ligne complète de la grille de Morpion est remplie avec les jetons (coins) d'un
+    //  joueur donné. Elle prend en entrée deux arguments, Symbolpions et couleurpions, qui représentent respectivement le symbole
+    //   et la couleur des jetons du joueur.Elle utilise une boucle try-catch pour vérifier si chaque ligne de la grille contient 4
+    //    jetons consécutifs du joueur donné. Elle utilise des conditions if-else pour vérifier toutes les combinaisons possibles de
+    //     4 jetons consécutifs dans chaque colonne de la grille. Si une diagogauche est remplie avec des jetons du joueur donné, la variable
+    //      victoire est définie comme "0" si c'est le joueur 1 qui a gagné, sinon "1" pour l'IA. Si aucune ligne n'est remplie, la
+    //       fonction renvoie null.
+    //--------------------------------------------------------------------------------------------------------
     public static String verifyDiagoLeft(String Symbolpions, String couleurpions){
         try {
             if((test.get(6).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(0).equals( couleurpions + Symbolpions + "\u001B[0m")) ||

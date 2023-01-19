@@ -12,7 +12,17 @@ import model.Joueur;
 
 public class app {
         
+
     private static Scanner scan = new Scanner(System.in);
+    /*
+                                                main()
+     La fonction main() déclare un objet Scanner nommé scan pour lire les entrées utilisateur. Il affiche ensuite
+      un menu à l'utilisateur en appelant la fonction afficherMenu(). Ensuite, il entre dans une boucle infinie qui
+       lit les choix de l'utilisateur. Selon le choix de l'utilisateur, il appelle les différentes fonctions
+        correspondantes : gameia() pour un jeu contre l'IA, game1v1() pour un jeu en 1 contre 1, topscore() pour afficher
+         les scores les plus élevés. Si l'utilisateur entre "q", la boucle s'arrête et la fonction retourne. Si l'utilisateur
+          entre autre chose, un message d'erreur sera affiché. Après chaque choix, il affiche à nouveau le menu pour un nouveau choix.
+     */
     public static void main(String[] args) throws Exception {
         afficherMenu();
         while (true) {
@@ -51,6 +61,17 @@ public class app {
             System.out.println(s);
         }
     }
+//--------------------------------------------------------
+//                        gameia()
+//  Elle déclare une variable score initialisée à zéro, puis appelle les méthodes ajoutplayeria(),
+//   clearGrille(), addGrill() et afficherGrill() de la classe Joueur et Case respectivement. Ensuite,
+//    elle vérifie la couleur des joueurs et les affecte à des variables, puis entre dans une boucle
+//     while qui vérifie si la variable victoire est null. Dans cette boucle, la méthode placerCoin()
+//      du joueur est appelée, suivie de la méthode IA(). Si la méthode verifiyEgalite() renvoie true,
+//       la boucle s'arrête. Enfin, le résultat du jeu est affiché à l'utilisateur et la méthode score()
+//        est appelée pour enregistrer le score
+//--------------------------------------------------------
+
 
     public static void gameia(){
         int score = 0;
@@ -97,6 +118,17 @@ public class app {
         Case.vc = false;
 
     }
+//---------------------------------------------------------------------------------------------------------------
+ /**                                                 game1v1()
+ * Cette méthode permet de lancer une partie à 2 joueurs.
+ * Elle initialise les informations des joueurs en utilisant la méthode ajoutplayer1v1() de la classe Joueur.
+ * Elle affiche ensuite le plateau de jeu avec la méthode afficherGrill().
+ * Ensuite, elle utilise une boucle while pour permettre aux joueurs de jouer tour à tour.
+ * Elle utilise une variable "symbolejoueur" pour savoir quel joueur doit jouer.
+ * Elle utilise la méthode placerCoin() pour permettre aux joueurs de placer leurs symboles sur le plateau.
+ * Elle termine en affichant à nouveau le plateau de jeu avec la méthode afficherGrill().
+ */
+//---------------------------------------------------------------------------------------------------------------
 
     public static void game1v1(){
         int tour = 1 ;
@@ -167,6 +199,16 @@ public class app {
         }
         
     }
+
+    //--------------------------------------------------------------------------------------------------------
+                                                //topscore()
+    // Ce code définit la méthode privée statique "topscore" qui affiche les 10 meilleurs scores en utilisant les informations
+//  de la classe Joueur. Il crée d'abord une liste de joueurs en utilisant la méthode statique "lister" de la classe Joueur.
+//   Ensuite, il trie la liste par ordre croissant en fonction du nombre de coups de chaque joueur. Enfin, Il utilise une
+//    boucle "for" pour parcourir la liste des joueurs et affiche le pseudo et le nombre de coups de chaque joueur si i est
+//     inférieur à 10, et quitte la boucle sinon.
+    //--------------------------------------------------------------------------------------------------------
+
     private static void topscore() throws IOException, ParseException {
         int i =0;
         ArrayList<Joueur> liste = Joueur.lister();
