@@ -37,6 +37,10 @@ public class Joueur {
     public static String p2color= null;
     public static String p1symbol = null;
     public static String p2symbol= null;
+    public static String couleurp = "";
+    public static String pions = null;
+    public static String couleurp1 = "";
+    public static String couleurp2 = "";
 
 
     public String getPseudo() {
@@ -226,7 +230,7 @@ public static void ecrire(ArrayList<Joueur> liste) throws IOException {
  }
 
 
- 
+
     public static void ajoutplayeria() {
         Joueur j = new Joueur();
         String red = "r";
@@ -337,6 +341,67 @@ public static void ecrire(ArrayList<Joueur> liste) throws IOException {
             }
         }
 
+    }
+
+    public static void placerCoin(){ 
+        boolean p = false;     
+        
+        do {
+            int index = 1;
+            System.out.println("Choisissez une colonne");
+            String rep = scan.nextLine();
+            while(1 <= Integer.valueOf(rep) && Integer.valueOf(rep) >= 8){
+            System.out.println("Choisissez une autre colonne");
+            rep = scan.nextLine();
+            }
+            while(Case.test.get(index).get(Integer.valueOf(rep)-1) == "_" && index < 6){                        
+            index++;
+            }
+            try {
+            while(Case.test.get(index).get(Integer.valueOf(rep)-1) != "_"){
+                index--;
+            }
+            } catch (IndexOutOfBoundsException e) {
+            }
+            if(Case.test.get(1).get(Integer.valueOf(rep)-1) == "_"){
+            Case.test.get(index).set(Integer.valueOf(rep)-1, couleurp + pions + "\u001B[0m");
+            p=true;
+            } else{
+                p = false;
+            System.out.println("Deja pris");
+            }
+        } while (p == false);
+        Case.verifyLine(pions, couleurp);
+        Case.verifyColumn(pions, couleurp);
+        Case.verifyDiagoLeft(pions, couleurp);
+        Case.verifyDiagoRight(pions, couleurp);
+    }
+    public static void IA(){
+        boolean z = false;
+        do{
+            int r = (int)(Math.random() * 7);
+            int index = 1;
+            while(Case.test.get(index).get(r) == "_" && index < 6){                        
+                index++;
+            }
+            try {
+                while(Case.test.get(index).get(r) != "_"){
+                    index--;
+                }
+            } catch (IndexOutOfBoundsException e) {
+            }
+            if(Case.test.get(1).get(r) == "_"){
+                Case.test.get(index).set(r,couleurp2+Joueur.p2symbol+"\u001B[0m");
+                z = true;
+            } else{
+                z = false;
+            }
+        } while(z ==false);
+        Case.afficherGrill();
+        Case.verifyLine(Joueur.p2symbol, couleurp2);
+        Case.verifyColumn(Joueur.p2symbol, couleurp2);
+        Case.verifyDiagoLeft(Joueur.p2symbol, couleurp2);
+        Case.verifyDiagoRight(Joueur.p2symbol, couleurp2);
     }
 }
 
