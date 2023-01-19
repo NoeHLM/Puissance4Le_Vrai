@@ -189,7 +189,7 @@ public class app {
         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("joueur.csv", true)));
                 
         try {
-            pw.println(pseudo+";"+score+"\n");
+            pw.println(pseudo+";"+score);
 
         } 
         catch (Exception e) {
