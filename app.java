@@ -1,21 +1,17 @@
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.LogManager;
+import java.io.IOException;
 import model.Case;
-import model.Joueur;
-
-
-import model.Joueur;
-
 import java.io.FileWriter;
-import java.util.Collections;
 
-import model.Joueur;
-
-
+import model.Case;
 
 public class app {
     private static List<List<String>> test = new ArrayList<>();
@@ -28,36 +24,31 @@ public class app {
     private static List<String> ligne6 = new ArrayList<>();
     public static boolean vv = false;
     private static Scanner scan = new Scanner(System.in);
-    static String symbolp = null ;
-    static String autour = null ;
-    static String couleurp = "";
     public static void main(String[] args) throws Exception {
         afficherMenu();
         while (true) {
             String choix = scan.nextLine();
             switch (choix) {
                 case "1": 
-
-                    gameIA();
-                    clearGrille();
-                    while(verify() == false){
+                        clearGrille();
+                        addGrill();
                         afficherGrill();
-                        placerCoin();
-                        IA();
-                        if(verifiyEgalite() == true){
-                            System.out.println("Equality");
-                        }else if(verify() == true){
-                            System.out.println("Nice game");
+                        System.out.println(verifyColumn());
+                        while(true){                          
+                            placerCoin();
+                            IA();
                         }
-                    }
-                    break;               
+                    // if(verifiyEgalite() == true){
+                    //     System.out.println("Equality");
+                    // }
+                    // break;               
                 case "2":
-                    game1v1();
+                    /*1V1*/
+                    afficherGrill();
                     verifiyEgalite();    
                     break;
                 case "3":
                     /*TopScore*/
-                    topscore();
                     break;
                 case "q":
                     /*Leave*/
@@ -84,96 +75,7 @@ public class app {
         }
     }
 
-
-
-    public static void gameIA() throws IOException {
-
-        Joueur.ajoutplayeria();
-        clearAllContact();
-        afficherGrill();
-        
-        int symbolejoueur = 1 ;
-        String co = "j";
-        
-        int infini = 1;
-
-        while(infini == 1){
-            if(symbolejoueur == 1){
-                symbolejoueur = 2;
-                symbolp = Joueur.p1symbol;
-                
-                autour = "Joueur\t"+Joueur.player1+" choisissez une colonne";
-                System.out.println(Joueur.p1color);
-                if (Joueur.p1color.equals("j")){
-                    couleurp = "\u001B[33m";
-                }else{
-                    couleurp = "\u001B[31m";
-                }
-                placerCoin();
-            }
-            afficherGrill();
-            if(symbolejoueur == 2){
-                symbolejoueur = 1;
-                symbolp = Joueur.p2symbol;
-                IA();
-            }
-            afficherGrill();
-        }   
-        afficherGrill();
-        
-        Case.affichergrill();
-    }
-
-
-
-    public static void game1v1() throws IOException {
-        
-        clearAllContact();
-        Joueur.ajoutplayer1v1();
-        afficherGrill();
-        int symbolejoueur = 1 ;
-        
-        int infini = 1;
-
-        while(infini == 1){
-            if(symbolejoueur == 1){
-                symbolejoueur = 2;
-                symbolp = Joueur.p1symbol;
-                autour = "Joueur\t"+Joueur.player1+" choisissez une colonne";
-                if (Joueur.p1color.equals("j")){
-                    couleurp = "\u001B[33m";
-                }else{
-                    couleurp = "\u001B[31m";
-                }
-                placerCoin();
-
-            }
-            afficherGrill();
-            if(symbolejoueur == 2){
-                symbolejoueur = 1;
-                symbolp = Joueur.p2symbol;
-                autour = "Joueur\t"+Joueur.player2+" choisissez une colonne";
-                if (Joueur.p2color.equals("j")){
-                    couleurp = "\u001B[33m";
-                }else{
-                    couleurp = "\u001B[31m";
-                }
-                placerCoin();
-                
-
-            }
-            afficherGrill();
-        }   
-        afficherGrill(); 
-     
-
-  
-
-    public static void clearAllContact(){
-
-    }
     public static void clearAll(){
-
         try {
             FileWriter file = new FileWriter("grille.csv");
             file.write("");
@@ -183,7 +85,7 @@ public class app {
         }
     }
 
-    public static void afficherGrill(){
+    public static void addGrill(){
         ligneIndex.add(" 1 2 3 4 5 6 7");
         for(int i=0; i<7;i++){
             ligne1.add("_");
@@ -200,7 +102,9 @@ public class app {
         test.add(ligne4);
         test.add(ligne5);
         test.add(ligne6);
+    }
 
+    public static void afficherGrill(){
         System.out.println(test.get(0).get(0));
         System.out.println("|" + test.get(1).get(0) + "|"+ test.get(1).get(1) + "|"+ test.get(1).get(2) + "|"+ test.get(1).get(3) + "|"+ test.get(1).get(4) + "|"+ test.get(1).get(5) + "|"+ test.get(1).get(6) + "|");
         System.out.println("|" + test.get(2).get(0) + "|"+ test.get(2).get(1) + "|"+ test.get(2).get(2) + "|"+ test.get(2).get(3) + "|"+ test.get(2).get(4) + "|"+ test.get(2).get(5) + "|"+ test.get(2).get(6) + "|");
@@ -256,77 +160,93 @@ public class app {
 
     }
 
-    public static boolean verify(){
-        vv = false;
-        try {
-            for(int i = 6;i>1;i--){
-                for(int j = 0;j<6;j++){
-                    if(test.get(i).get(j) == "@"){
-                        if(test.get(i-1).get(j) == "@"){
-                            if(test.get(i-2).get(j) == "@"){
-                                if(test.get(i-3).get(j) == "@"){
-                                    vv = true;
-                                }
-                            }
-                        } else if(test.get(i).get(j+1) == "@"){
-                            if(test.get(i).get(j+2) == "@"){
-                                if(test.get(i).get(j+3) == "@"){
-                                    vv = true;
-                                }
-                            }
-                        } else if(test.get(i-1).get(j+1) == "@"){
-                            if(test.get(i-2).get(j+2) == "@"){
-                                if(test.get(i-3).get(j+3) == "@"){
-                                    vv = true;
-                                }
-                            }
-                        } else if(test.get(i-1).get(j-1) == "@"){
-                            if(test.get(i-2).get(j-2) == "@"){
-                                if(test.get(i-3).get(j-3) == "@"){
-                                    vv = true;
-                                }
-                            }
-                        }
-                    } else{
-                        if(test.get(i).get(j) == "="){
-                            if(test.get(i-1).get(j) == "="){
-                                if(test.get(i-2).get(j) == "="){
-                                    if(test.get(i-3).get(j) == "="){
-                                        vv = true;
-                                    }
-                                }
-                            } else if(test.get(i).get(j+1) == "="){
-                                if(test.get(i).get(j+2) == "="){
-                                    if(test.get(i).get(j+3) == "="){
-                                        vv = true;
-                                    }
-                                }
-                            } else if(test.get(i-1).get(j+1) == "="){
-                                if(test.get(i-2).get(j+2) == "="){
-                                    if(test.get(i-3).get(j+3) == "="){
-                                        vv = true;
-                                    }
-                                }
-                            } else if(test.get(i-1).get(j-1) == "="){
-                                if(test.get(i-2).get(j-2) == "="){
-                                    if(test.get(i-3).get(j-3) == "="){
-                                        vv = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
+    public static boolean verifyLine(){
+        boolean temp = false;
+        while(temp == false){
+            try {
+                if((test.get(6).get(0) == "@" && test.get(6).get(1) == "@" && test.get(6).get(2) == "@" && test.get(6).get(3) == "@") ||
+            (test.get(6).get(1) == "@" && test.get(6).get(2) == "@" && test.get(6).get(3) == "@" && test.get(6).get(4) == "@") ||
+            (test.get(6).get(2) == "@" && test.get(6).get(3) == "@" && test.get(6).get(4) == "@" && test.get(6).get(5) == "@") ||
+            (test.get(6).get(3) == "@" && test.get(6).get(4) == "@" && test.get(6).get(5) == "@" && test.get(6).get(6) == "@")){
+                temp = false;
+                } else if((test.get(5).get(0) == "@" && test.get(5).get(1) == "@" && test.get(5).get(2) == "@" && test.get(5).get(3) == "@") ||
+                (test.get(5).get(1) == "@" && test.get(5).get(2) == "@" && test.get(5).get(3) == "@" && test.get(5).get(4) == "@") ||
+                (test.get(5).get(2) == "@" && test.get(5).get(3) == "@" && test.get(5).get(4) == "@" && test.get(5).get(5) == "@") ||
+                (test.get(5).get(3) == "@" && test.get(5).get(4) == "@" && test.get(5).get(5) == "@" && test.get(5).get(6) == "@")){
+                    temp = false;
+                } else if((test.get(4).get(0) == "@" && test.get(4).get(1) == "@" && test.get(4).get(2) == "@" && test.get(4).get(3) == "@") ||
+                (test.get(4).get(1) == "@" && test.get(4).get(2) == "@" && test.get(4).get(3) == "@" && test.get(4).get(4) == "@") ||
+                (test.get(4).get(2) == "@" && test.get(4).get(3) == "@" && test.get(4).get(4) == "@" && test.get(4).get(5) == "@") ||
+                (test.get(4).get(3) == "@" && test.get(4).get(4) == "@" && test.get(4).get(5) == "@" && test.get(4).get(6) == "@")){
+                    temp = false;
+                }else if((test.get(3).get(0) == "@" && test.get(3).get(1) == "@" && test.get(3).get(2) == "@" && test.get(3).get(3) == "@") ||
+                (test.get(3).get(1) == "@" && test.get(3).get(2) == "@" && test.get(3).get(3) == "@" && test.get(3).get(4) == "@") ||
+                (test.get(3).get(2) == "@" && test.get(3).get(3) == "@" && test.get(3).get(4) == "@" && test.get(3).get(5) == "@") ||
+                (test.get(3).get(3) == "@" && test.get(3).get(4) == "@" && test.get(3).get(5) == "@" && test.get(3).get(6) == "@")){
+                    temp = false;
+                }else if((test.get(2).get(0) == "@" && test.get(2).get(1) == "@" && test.get(2).get(2) == "@" && test.get(2).get(3) == "@") ||
+                (test.get(2).get(1) == "@" && test.get(2).get(2) == "@" && test.get(2).get(3) == "@" && test.get(2).get(4) == "@") ||
+                (test.get(2).get(2) == "@" && test.get(2).get(3) == "@" && test.get(2).get(4) == "@" && test.get(2).get(5) == "@") ||
+                (test.get(2).get(3) == "@" && test.get(2).get(4) == "@" && test.get(2).get(5) == "@" && test.get(2).get(6) == "@")){
+                    temp = false;
+                } else if((test.get(1).get(0) == "@" && test.get(1).get(1) == "@" && test.get(1).get(2) == "@" && test.get(1).get(3) == "@") ||
+                (test.get(1).get(1) == "@" && test.get(1).get(2) == "@" && test.get(1).get(3) == "@" && test.get(1).get(4) == "@") ||
+                (test.get(1).get(2) == "@" && test.get(1).get(3) == "@" && test.get(1).get(4) == "@" && test.get(1).get(5) == "@") ||
+                (test.get(1).get(3) == "@" && test.get(1).get(4) == "@" && test.get(1).get(5) == "@" && test.get(1).get(6) == "@")){
+                    temp = false;
                 }
+            } catch (IndexOutOfBoundsException e) {
+                // TODO: handle exception
             }
-        } catch (IndexOutOfBoundsException e) {
-            // TODO: handle exception
         }
-        return vv;
+        temp = false;
+        return temp;
+    }
+
+    public static boolean verifyColumn(){
+        boolean temp = false;
+        while(temp == false){
+            try {
+                if((test.get(1).get(0) == "@" && test.get(2).get(0) == "@" && test.get(3).get(0) == "@" && test.get(4).get(0) == "@") ||
+            (test.get(2).get(0) == "@" && test.get(3).get(0) == "@" && test.get(4).get(0) == "@" && test.get(5).get(0) == "@") ||
+            (test.get(3).get(0) == "@" && test.get(4).get(0) == "@" && test.get(5).get(0) == "@" && test.get(6).get(0) == "@")){
+                temp = true;
+                } else if((test.get(1).get(1) == "@" && test.get(2).get(1) == "@" && test.get(3).get(1) == "@" && test.get(4).get(1) == "@") ||
+                (test.get(2).get(1) == "@" && test.get(3).get(1) == "@" && test.get(4).get(1) == "@" && test.get(5).get(1) == "@") ||
+                (test.get(3).get(1) == "@" && test.get(4).get(1) == "@" && test.get(5).get(1) == "@" && test.get(6).get(1) == "@")){
+                    temp = true;
+                } else if((test.get(1).get(2) == "@" && test.get(2).get(2) == "@" && test.get(3).get(2) == "@" && test.get(4).get(2) == "@") ||
+                (test.get(2).get(2) == "@" && test.get(3).get(2) == "@" && test.get(4).get(2) == "@" && test.get(5).get(2) == "@") ||
+                (test.get(3).get(2) == "@" && test.get(4).get(2) == "@" && test.get(5).get(2) == "@" && test.get(6).get(2) == "@")){
+                    temp = true;
+                }else if((test.get(1).get(3) == "@" && test.get(2).get(3) == "@" && test.get(3).get(3) == "@" && test.get(4).get(3) == "@") ||
+                (test.get(2).get(3) == "@" && test.get(3).get(3) == "@" && test.get(4).get(3) == "@" && test.get(5).get(3) == "@") ||
+                (test.get(3).get(3) == "@" && test.get(4).get(3) == "@" && test.get(5).get(3) == "@" && test.get(6).get(3) == "@")){
+                    temp = true;
+                }else if((test.get(1).get(4) == "@" && test.get(2).get(4) == "@" && test.get(3).get(4) == "@" && test.get(4).get(4) == "@") ||
+                (test.get(2).get(4) == "@" && test.get(3).get(4) == "@" && test.get(4).get(4) == "@" && test.get(5).get(4) == "@") ||
+                (test.get(3).get(4) == "@" && test.get(4).get(4) == "@" && test.get(5).get(4) == "@" && test.get(6).get(4) == "@")){
+                    temp = true;
+                } else if((test.get(1).get(5) == "@" && test.get(2).get(5) == "@" && test.get(3).get(5) == "@" && test.get(4).get(5) == "@") ||
+                (test.get(2).get(5) == "@" && test.get(3).get(5) == "@" && test.get(4).get(5) == "@" && test.get(5).get(5) == "@") ||
+                (test.get(3).get(5) == "@" && test.get(4).get(5) == "@" && test.get(5).get(5) == "@" && test.get(6).get(5) == "@")){
+                    temp = true;
+                } else if((test.get(1).get(6) == "@" && test.get(2).get(6) == "@" && test.get(3).get(6) == "@" && test.get(4).get(6) == "@") ||
+                (test.get(2).get(6) == "@" && test.get(3).get(6) == "@" && test.get(4).get(6) == "@" && test.get(5).get(6) == "@") ||
+                (test.get(3).get(6) == "@" && test.get(4).get(6) == "@" && test.get(5).get(6) == "@" && test.get(6).get(6) == "@")){
+                    temp = true;
+                }
+            } catch (IndexOutOfBoundsException e) {
+                // TODO: handle exception
+            }
+        }
+        temp = false;
+        return temp;
     }
 
     public static void placerCoin(){      
         int index = 1;
-        System.out.println(autour);
+        System.out.println("Choisissez une colonne");
         String rep = scan.nextLine();
         while(1 <= Integer.valueOf(rep) && Integer.valueOf(rep) >= 8){
             System.out.println("Choisissez une autre colonne");
@@ -342,35 +262,12 @@ public class app {
         } catch (IndexOutOfBoundsException e) {
         }
         if(test.get(1).get(Integer.valueOf(rep)-1) == "_"){
-            test.get(index).set(Integer.valueOf(rep)-1, couleurp+symbolp+"\u001B[0m");
+            test.get(index).set(Integer.valueOf(rep)-1, "@");
         } else{
             System.out.println("Deja pris");
         }
-
-    }  
-
-    
-
-    private static void topscore() throws IOException {
-            int i =0;
-            ArrayList<Joueur> liste = Joueur.lister();
-            Collections.sort(liste, (c1, c2) -> Integer.parseInt(c1.getNb_coups()) - Integer.parseInt(c2.getNb_coups()));
-                for (Joueur joueur : liste) {
-                        if(i<10) {
-                        System.out.println(joueur.getPseudo() + " a fait " + joueur.getNb_coups()+ " coups");
-                        i++;
-                        }
-                else{
-                    break;
-                }
-                
-            }
-            
-            
-            
-            
-            
-
+        verifyLine();
+        verifyColumn();
     }
 
     public static void IA(){
@@ -387,19 +284,15 @@ public class app {
                 }
             } catch (IndexOutOfBoundsException e) {
             }
-            if (Joueur.p2color.equals("j")){
-            couleurp = "\u001B[33m";
-            }else{
-            couleurp = "\u001B[31m";
-            }
             if(test.get(1).get(r) == "_"){
-                test.get(index).set(r,couleurp+Joueur.p2symbol+"\u001B[0m");
+                test.get(index).set(r, "=");
                 z = true;
             } else{
                 z = false;
             }
         } while(z ==false);
+        afficherGrill();
     }
-
 }
- 
+
+    
