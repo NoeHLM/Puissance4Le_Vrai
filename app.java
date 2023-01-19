@@ -380,6 +380,98 @@ public class app {
         return victoire;
     }
 
+    public static String verifyDiagoRight(String Symbolpions, String couleurpions){
+        try {
+            if((test.get(4).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(3).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(6).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(6).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                if(Symbolpions.equals(Joueur.p1symbol)){
+                    victoire = "0";
+                }else{
+                    victoire="1";
+                }            
+            }else if((test.get(5).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(3).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(4).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(4).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                if(Symbolpions.equals(Joueur.p1symbol)){
+                    victoire = "0";
+                }else{
+                    victoire="1";
+                }            
+            }else if((test.get(6).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(5).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(5).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(6).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                if(Symbolpions.equals(Joueur.p1symbol)){
+                    victoire = "0";
+                }else{
+                    victoire="1";
+                }            
+            }else if((test.get(6).get(0).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(3).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(5).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(4).equals( couleurpions + Symbolpions + "\u001B[0m")) || 
+            (test.get(4).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(5).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                if(Symbolpions.equals(Joueur.p1symbol)){
+                    victoire = "0";
+                }else{
+                    victoire="1";
+                }            
+            }else if((test.get(6).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(4).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(5).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(5).equals( couleurpions + Symbolpions + "\u001B[0m")) || 
+            (test.get(4).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(6).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                if(Symbolpions.equals(Joueur.p1symbol)){
+                    victoire = "0";
+                }else{
+                    victoire="1";
+                }            
+            }
+        } catch (IndexOutOfBoundsException e) {
+            // TODO: handle exception
+        }
+        return victoire;
+    }
+
+    public static String verifyDiagoLeft(String Symbolpions, String couleurpions){
+        try {
+            if((test.get(6).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(0).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(4).get(6).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(3).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                if(Symbolpions.equals(Joueur.p1symbol)){
+                    victoire = "0";
+                }else{
+                    victoire="1";
+                }            
+            }else if((test.get(6).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(1).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(5).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(0).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                if(Symbolpions.equals(Joueur.p1symbol)){
+                    victoire = "0";
+                }else{
+                    victoire="1";
+                }            
+            }else if((test.get(5).get(6).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(3).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(4).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(2).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                if(Symbolpions.equals(Joueur.p1symbol)){
+                    victoire = "0";
+                }else{
+                    victoire="1";
+                }            
+            }else if((test.get(6).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(2).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(5).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(1).equals( couleurpions + Symbolpions + "\u001B[0m")) || 
+            (test.get(4).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(1).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(0).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                if(Symbolpions.equals(Joueur.p1symbol)){
+                    victoire = "0";
+                }else{
+                    victoire="1";
+                }            
+            }else if((test.get(6).get(6).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(5).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(3).equals( couleurpions + Symbolpions + "\u001B[0m")) ||
+            (test.get(5).get(5).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(4).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(2).equals( couleurpions + Symbolpions + "\u001B[0m")) || 
+            (test.get(4).get(4).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(3).get(3).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(2).get(2).equals( couleurpions + Symbolpions + "\u001B[0m") && test.get(1).get(1).equals( couleurpions + Symbolpions + "\u001B[0m"))){
+                if(Symbolpions.equals(Joueur.p1symbol)){
+                    victoire = "0";
+                }else{
+                    victoire="1";
+                }            
+            }
+        } catch (IndexOutOfBoundsException e) {
+            // TODO: handle exception
+        }
+        return victoire;
+    }
+
     public static void placerCoin(){      
         int index = 1;
         
@@ -406,6 +498,8 @@ public class app {
         }
         verifyLine(pions, couleurp);
         verifyColumn(pions, couleurp);
+        verifyDiagoLeft(pions, couleurp);
+        verifyDiagoRight(pions, couleurp);
     }
 
     public static void IA(){
@@ -432,6 +526,8 @@ public class app {
         afficherGrill();
         verifyLine(Joueur.p2symbol, couleurp2);
         verifyColumn(Joueur.p2symbol, couleurp2);
+        verifyDiagoLeft(Joueur.p2symbol, couleurp2);
+        verifyDiagoRight(Joueur.p2symbol, couleurp2);
     }
 }
 
