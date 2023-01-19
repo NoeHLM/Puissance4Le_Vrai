@@ -23,6 +23,8 @@ public class app {
     private static List<String> ligne5 = new ArrayList<>();
     private static List<String> ligne6 = new ArrayList<>();
     public static boolean vv = false;
+    public static boolean victoirej1 = false;
+    public static boolean vc = false;
     private static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
         afficherMenu();
@@ -33,15 +35,19 @@ public class app {
                         clearGrille();
                         addGrill();
                         afficherGrill();
-                        System.out.println(verifyColumn());
-                        while(true){                          
+                        
+                        while(victoirej1 == false  || victoirej1 == false ){                       
                             placerCoin();
                             IA();
+                            if(verifiyEgalite()== true){
+                                System.out.println("Egalité contre un bot");
+                                break;
+                            }
+                            
                         }
-                    // if(verifiyEgalite() == true){
-                    //     System.out.println("Equality");
-                    // }
-                    // break;               
+                        victoirej1 = false;
+                        vc = false;
+                    break;               
                 case "2":
                     /*1V1*/
                     afficherGrill();
@@ -135,7 +141,7 @@ public class app {
     }
 
     public static boolean verifiyEgalite(){
-        boolean vc = false;
+        
         List<String> column1 = new ArrayList<>();
         List<String> column2 = new ArrayList<>();
         List<String> column3 = new ArrayList<>();
@@ -160,88 +166,88 @@ public class app {
 
     }
 
-    public static boolean verifyLine(){
-        boolean temp = false;
-        while(temp == false){
+    public static boolean verifyLine(String Symbolpions){
+        
+        
             try {
-                if((test.get(6).get(0) == "@" && test.get(6).get(1) == "@" && test.get(6).get(2) == "@" && test.get(6).get(3) == "@") ||
-            (test.get(6).get(1) == "@" && test.get(6).get(2) == "@" && test.get(6).get(3) == "@" && test.get(6).get(4) == "@") ||
-            (test.get(6).get(2) == "@" && test.get(6).get(3) == "@" && test.get(6).get(4) == "@" && test.get(6).get(5) == "@") ||
-            (test.get(6).get(3) == "@" && test.get(6).get(4) == "@" && test.get(6).get(5) == "@" && test.get(6).get(6) == "@")){
-                temp = false;
-                } else if((test.get(5).get(0) == "@" && test.get(5).get(1) == "@" && test.get(5).get(2) == "@" && test.get(5).get(3) == "@") ||
-                (test.get(5).get(1) == "@" && test.get(5).get(2) == "@" && test.get(5).get(3) == "@" && test.get(5).get(4) == "@") ||
-                (test.get(5).get(2) == "@" && test.get(5).get(3) == "@" && test.get(5).get(4) == "@" && test.get(5).get(5) == "@") ||
-                (test.get(5).get(3) == "@" && test.get(5).get(4) == "@" && test.get(5).get(5) == "@" && test.get(5).get(6) == "@")){
-                    temp = false;
-                } else if((test.get(4).get(0) == "@" && test.get(4).get(1) == "@" && test.get(4).get(2) == "@" && test.get(4).get(3) == "@") ||
-                (test.get(4).get(1) == "@" && test.get(4).get(2) == "@" && test.get(4).get(3) == "@" && test.get(4).get(4) == "@") ||
-                (test.get(4).get(2) == "@" && test.get(4).get(3) == "@" && test.get(4).get(4) == "@" && test.get(4).get(5) == "@") ||
-                (test.get(4).get(3) == "@" && test.get(4).get(4) == "@" && test.get(4).get(5) == "@" && test.get(4).get(6) == "@")){
-                    temp = false;
-                }else if((test.get(3).get(0) == "@" && test.get(3).get(1) == "@" && test.get(3).get(2) == "@" && test.get(3).get(3) == "@") ||
-                (test.get(3).get(1) == "@" && test.get(3).get(2) == "@" && test.get(3).get(3) == "@" && test.get(3).get(4) == "@") ||
-                (test.get(3).get(2) == "@" && test.get(3).get(3) == "@" && test.get(3).get(4) == "@" && test.get(3).get(5) == "@") ||
-                (test.get(3).get(3) == "@" && test.get(3).get(4) == "@" && test.get(3).get(5) == "@" && test.get(3).get(6) == "@")){
-                    temp = false;
-                }else if((test.get(2).get(0) == "@" && test.get(2).get(1) == "@" && test.get(2).get(2) == "@" && test.get(2).get(3) == "@") ||
-                (test.get(2).get(1) == "@" && test.get(2).get(2) == "@" && test.get(2).get(3) == "@" && test.get(2).get(4) == "@") ||
-                (test.get(2).get(2) == "@" && test.get(2).get(3) == "@" && test.get(2).get(4) == "@" && test.get(2).get(5) == "@") ||
-                (test.get(2).get(3) == "@" && test.get(2).get(4) == "@" && test.get(2).get(5) == "@" && test.get(2).get(6) == "@")){
-                    temp = false;
-                } else if((test.get(1).get(0) == "@" && test.get(1).get(1) == "@" && test.get(1).get(2) == "@" && test.get(1).get(3) == "@") ||
-                (test.get(1).get(1) == "@" && test.get(1).get(2) == "@" && test.get(1).get(3) == "@" && test.get(1).get(4) == "@") ||
-                (test.get(1).get(2) == "@" && test.get(1).get(3) == "@" && test.get(1).get(4) == "@" && test.get(1).get(5) == "@") ||
-                (test.get(1).get(3) == "@" && test.get(1).get(4) == "@" && test.get(1).get(5) == "@" && test.get(1).get(6) == "@")){
-                    temp = false;
+                if((test.get(6).get(0) == Symbolpions && test.get(6).get(1) == Symbolpions && test.get(6).get(2) == Symbolpions && test.get(6).get(3) == Symbolpions) ||
+            (test.get(6).get(1) == Symbolpions && test.get(6).get(2) == Symbolpions && test.get(6).get(3) == Symbolpions && test.get(6).get(4) == Symbolpions) ||
+            (test.get(6).get(2) == Symbolpions && test.get(6).get(3) == Symbolpions && test.get(6).get(4) == Symbolpions && test.get(6).get(5) == Symbolpions) ||
+            (test.get(6).get(3) == Symbolpions && test.get(6).get(4) == Symbolpions && test.get(6).get(5) == Symbolpions && test.get(6).get(6) == Symbolpions)){
+                victoirej1 = true;
+                } else if((test.get(5).get(0) == Symbolpions && test.get(5).get(1) == Symbolpions && test.get(5).get(2) == Symbolpions && test.get(5).get(3) == Symbolpions) ||
+                (test.get(5).get(1) == Symbolpions && test.get(5).get(2) == Symbolpions && test.get(5).get(3) == Symbolpions && test.get(5).get(4) == Symbolpions) ||
+                (test.get(5).get(2) == Symbolpions && test.get(5).get(3) == Symbolpions && test.get(5).get(4) == Symbolpions && test.get(5).get(5) == Symbolpions) ||
+                (test.get(5).get(3) == Symbolpions && test.get(5).get(4) == Symbolpions && test.get(5).get(5) == Symbolpions && test.get(5).get(6) == Symbolpions)){
+                    victoirej1 = true;
+                } else if((test.get(4).get(0) == Symbolpions && test.get(4).get(1) == Symbolpions && test.get(4).get(2) == Symbolpions && test.get(4).get(3) == Symbolpions) ||
+                (test.get(4).get(1) == Symbolpions && test.get(4).get(2) == Symbolpions && test.get(4).get(3) == Symbolpions && test.get(4).get(4) == Symbolpions) ||
+                (test.get(4).get(2) == Symbolpions && test.get(4).get(3) == Symbolpions && test.get(4).get(4) == Symbolpions && test.get(4).get(5) == Symbolpions) ||
+                (test.get(4).get(3) == Symbolpions && test.get(4).get(4) == Symbolpions && test.get(4).get(5) == Symbolpions && test.get(4).get(6) == Symbolpions)){
+                    victoirej1 = true;
+                }else if((test.get(3).get(0) == Symbolpions && test.get(3).get(1) == Symbolpions && test.get(3).get(2) == Symbolpions && test.get(3).get(3) == Symbolpions) ||
+                (test.get(3).get(1) == Symbolpions && test.get(3).get(2) == Symbolpions && test.get(3).get(3) == Symbolpions && test.get(3).get(4) == Symbolpions) ||
+                (test.get(3).get(2) == Symbolpions && test.get(3).get(3) == Symbolpions && test.get(3).get(4) == Symbolpions && test.get(3).get(5) == Symbolpions) ||
+                (test.get(3).get(3) == Symbolpions && test.get(3).get(4) == Symbolpions && test.get(3).get(5) == Symbolpions && test.get(3).get(6) == Symbolpions)){
+                    victoirej1 = true;
+                }else if((test.get(2).get(0) == Symbolpions && test.get(2).get(1) == Symbolpions && test.get(2).get(2) == Symbolpions && test.get(2).get(3) == Symbolpions) ||
+                (test.get(2).get(1) == Symbolpions && test.get(2).get(2) == Symbolpions && test.get(2).get(3) == Symbolpions && test.get(2).get(4) == Symbolpions) ||
+                (test.get(2).get(2) == Symbolpions && test.get(2).get(3) == Symbolpions && test.get(2).get(4) == Symbolpions && test.get(2).get(5) == Symbolpions) ||
+                (test.get(2).get(3) == Symbolpions && test.get(2).get(4) == Symbolpions && test.get(2).get(5) == Symbolpions && test.get(2).get(6) == Symbolpions)){
+                    victoirej1 = true;
+                } else if((test.get(1).get(0) == Symbolpions && test.get(1).get(1) == Symbolpions && test.get(1).get(2) == Symbolpions && test.get(1).get(3) == Symbolpions) ||
+                (test.get(1).get(1) == Symbolpions && test.get(1).get(2) == Symbolpions && test.get(1).get(3) == Symbolpions && test.get(1).get(4) == Symbolpions) ||
+                (test.get(1).get(2) == Symbolpions && test.get(1).get(3) == Symbolpions && test.get(1).get(4) == Symbolpions && test.get(1).get(5) == Symbolpions) ||
+                (test.get(1).get(3) == Symbolpions && test.get(1).get(4) == Symbolpions && test.get(1).get(5) == Symbolpions && test.get(1).get(6) == Symbolpions)){
+                    victoirej1 = true;
                 }
             } catch (IndexOutOfBoundsException e) {
                 // TODO: handle exception
             }
-        }
-        temp = false;
-        return temp;
+        
+        
+        return victoirej1;
     }
 
-    public static boolean verifyColumn(){
-        boolean temp = false;
-        while(temp == false){
+    public static boolean verifyColumn(String Symbolpions){
+        
+        
             try {
-                if((test.get(1).get(0) == "@" && test.get(2).get(0) == "@" && test.get(3).get(0) == "@" && test.get(4).get(0) == "@") ||
-            (test.get(2).get(0) == "@" && test.get(3).get(0) == "@" && test.get(4).get(0) == "@" && test.get(5).get(0) == "@") ||
-            (test.get(3).get(0) == "@" && test.get(4).get(0) == "@" && test.get(5).get(0) == "@" && test.get(6).get(0) == "@")){
-                temp = true;
-                } else if((test.get(1).get(1) == "@" && test.get(2).get(1) == "@" && test.get(3).get(1) == "@" && test.get(4).get(1) == "@") ||
-                (test.get(2).get(1) == "@" && test.get(3).get(1) == "@" && test.get(4).get(1) == "@" && test.get(5).get(1) == "@") ||
-                (test.get(3).get(1) == "@" && test.get(4).get(1) == "@" && test.get(5).get(1) == "@" && test.get(6).get(1) == "@")){
-                    temp = true;
-                } else if((test.get(1).get(2) == "@" && test.get(2).get(2) == "@" && test.get(3).get(2) == "@" && test.get(4).get(2) == "@") ||
-                (test.get(2).get(2) == "@" && test.get(3).get(2) == "@" && test.get(4).get(2) == "@" && test.get(5).get(2) == "@") ||
-                (test.get(3).get(2) == "@" && test.get(4).get(2) == "@" && test.get(5).get(2) == "@" && test.get(6).get(2) == "@")){
-                    temp = true;
-                }else if((test.get(1).get(3) == "@" && test.get(2).get(3) == "@" && test.get(3).get(3) == "@" && test.get(4).get(3) == "@") ||
-                (test.get(2).get(3) == "@" && test.get(3).get(3) == "@" && test.get(4).get(3) == "@" && test.get(5).get(3) == "@") ||
-                (test.get(3).get(3) == "@" && test.get(4).get(3) == "@" && test.get(5).get(3) == "@" && test.get(6).get(3) == "@")){
-                    temp = true;
-                }else if((test.get(1).get(4) == "@" && test.get(2).get(4) == "@" && test.get(3).get(4) == "@" && test.get(4).get(4) == "@") ||
-                (test.get(2).get(4) == "@" && test.get(3).get(4) == "@" && test.get(4).get(4) == "@" && test.get(5).get(4) == "@") ||
-                (test.get(3).get(4) == "@" && test.get(4).get(4) == "@" && test.get(5).get(4) == "@" && test.get(6).get(4) == "@")){
-                    temp = true;
-                } else if((test.get(1).get(5) == "@" && test.get(2).get(5) == "@" && test.get(3).get(5) == "@" && test.get(4).get(5) == "@") ||
-                (test.get(2).get(5) == "@" && test.get(3).get(5) == "@" && test.get(4).get(5) == "@" && test.get(5).get(5) == "@") ||
-                (test.get(3).get(5) == "@" && test.get(4).get(5) == "@" && test.get(5).get(5) == "@" && test.get(6).get(5) == "@")){
-                    temp = true;
-                } else if((test.get(1).get(6) == "@" && test.get(2).get(6) == "@" && test.get(3).get(6) == "@" && test.get(4).get(6) == "@") ||
-                (test.get(2).get(6) == "@" && test.get(3).get(6) == "@" && test.get(4).get(6) == "@" && test.get(5).get(6) == "@") ||
-                (test.get(3).get(6) == "@" && test.get(4).get(6) == "@" && test.get(5).get(6) == "@" && test.get(6).get(6) == "@")){
-                    temp = true;
+                if((test.get(1).get(0) == Symbolpions && test.get(2).get(0) == Symbolpions && test.get(3).get(0) == Symbolpions && test.get(4).get(0) == Symbolpions) ||
+            (test.get(2).get(0) == Symbolpions && test.get(3).get(0) == Symbolpions && test.get(4).get(0) == Symbolpions && test.get(5).get(0) == Symbolpions) ||
+            (test.get(3).get(0) == Symbolpions && test.get(4).get(0) == Symbolpions && test.get(5).get(0) == Symbolpions && test.get(6).get(0) == Symbolpions)){
+                victoirej1 = true;
+                } else if((test.get(1).get(1) == Symbolpions && test.get(2).get(1) == Symbolpions && test.get(3).get(1) == Symbolpions && test.get(4).get(1) == Symbolpions) ||
+                (test.get(2).get(1) == Symbolpions && test.get(3).get(1) == Symbolpions && test.get(4).get(1) == Symbolpions && test.get(5).get(1) == Symbolpions) ||
+                (test.get(3).get(1) == Symbolpions && test.get(4).get(1) == Symbolpions && test.get(5).get(1) == Symbolpions && test.get(6).get(1) == Symbolpions)){
+                    victoirej1 = true;
+                } else if((test.get(1).get(2) == Symbolpions && test.get(2).get(2) == Symbolpions && test.get(3).get(2) == Symbolpions && test.get(4).get(2) == Symbolpions) ||
+                (test.get(2).get(2) == Symbolpions && test.get(3).get(2) == Symbolpions && test.get(4).get(2) == Symbolpions && test.get(5).get(2) == Symbolpions) ||
+                (test.get(3).get(2) == Symbolpions && test.get(4).get(2) == Symbolpions && test.get(5).get(2) == Symbolpions && test.get(6).get(2) == Symbolpions)){
+                    victoirej1 = true;
+                }else if((test.get(1).get(3) == Symbolpions && test.get(2).get(3) == Symbolpions && test.get(3).get(3) == Symbolpions && test.get(4).get(3) == Symbolpions) ||
+                (test.get(2).get(3) == Symbolpions && test.get(3).get(3) == Symbolpions && test.get(4).get(3) == Symbolpions && test.get(5).get(3) == Symbolpions) ||
+                (test.get(3).get(3) == Symbolpions && test.get(4).get(3) == Symbolpions && test.get(5).get(3) == Symbolpions && test.get(6).get(3) == Symbolpions)){
+                    victoirej1 = true;
+                }else if((test.get(1).get(4) == Symbolpions && test.get(2).get(4) == Symbolpions && test.get(3).get(4) == Symbolpions && test.get(4).get(4) == Symbolpions) ||
+                (test.get(2).get(4) == Symbolpions && test.get(3).get(4) == Symbolpions && test.get(4).get(4) == Symbolpions && test.get(5).get(4) == Symbolpions) ||
+                (test.get(3).get(4) == Symbolpions && test.get(4).get(4) == Symbolpions && test.get(5).get(4) == Symbolpions && test.get(6).get(4) == Symbolpions)){
+                    victoirej1 = true;
+                } else if((test.get(1).get(5) == Symbolpions && test.get(2).get(5) == Symbolpions && test.get(3).get(5) == Symbolpions && test.get(4).get(5) == Symbolpions) ||
+                (test.get(2).get(5) == Symbolpions && test.get(3).get(5) == Symbolpions && test.get(4).get(5) == Symbolpions && test.get(5).get(5) == Symbolpions) ||
+                (test.get(3).get(5) == Symbolpions && test.get(4).get(5) == Symbolpions && test.get(5).get(5) == Symbolpions && test.get(6).get(5) == Symbolpions)){
+                    victoirej1 = true;
+                } else if((test.get(1).get(6) == Symbolpions && test.get(2).get(6) == Symbolpions && test.get(3).get(6) == Symbolpions && test.get(4).get(6) == Symbolpions) ||
+                (test.get(2).get(6) == Symbolpions && test.get(3).get(6) == Symbolpions && test.get(4).get(6) == Symbolpions && test.get(5).get(6) == Symbolpions) ||
+                (test.get(3).get(6) == Symbolpions && test.get(4).get(6) == Symbolpions && test.get(5).get(6) == Symbolpions && test.get(6).get(6) == Symbolpions)){
+                    victoirej1 = true;
                 }
             } catch (IndexOutOfBoundsException e) {
                 // TODO: handle exception
             }
-        }
-        temp = false;
-        return temp;
+        
+        
+        return victoirej1;
     }
 
     public static void placerCoin(){      
@@ -266,8 +272,8 @@ public class app {
         } else{
             System.out.println("Deja pris");
         }
-        verifyLine();
-        verifyColumn();
+        verifyLine("@");
+        verifyColumn("@");
     }
 
     public static void IA(){
@@ -292,6 +298,8 @@ public class app {
             }
         } while(z ==false);
         afficherGrill();
+        verifyLine("=");
+        verifyColumn("=");
     }
 }
 
